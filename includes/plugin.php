@@ -2,8 +2,6 @@
 
 namespace dcms\pin\includes;
 
-use dcms\pin\includes\Database;
-
 // Class for the operations of plugin
 class Plugin{
 

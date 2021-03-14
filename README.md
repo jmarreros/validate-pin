@@ -1,3 +1,3 @@
-# Init plugin
+# Validate Form PIN
 
-Replace pin and yyyy
+Validate data and send PIN by email

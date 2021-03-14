@@ -18,6 +18,10 @@
     <label for="email">Correo<span>*</span></label>
     <input type="email" id="email" name="email" value="" maxlength="100" tabindex="3" required>
 
+    <div class="container-policy">
+        <input type="checkbox" id="policy" name="policy" required> <label for="policy">Aceptar los <a href="#">Términos y Condiciones</a></label>
+    </div>
+
     <input type="submit" class="button" id="send" name="send" value="Enviar" />
 
 </form>

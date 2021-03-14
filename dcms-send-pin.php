@@ -17,6 +17,7 @@ namespace dcms\pin;
 use dcms\pin\includes\Plugin;
 use dcms\pin\includes\Submenu;
 use dcms\pin\includes\Settings;
+use dcms\pin\includes\Enqueue;
 use dcms\pin\includes\Shortcode;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -45,6 +46,7 @@ final class Loader{
 		include_once ( DCMS_PIN_PATH . '/includes/plugin.php');
 		include_once ( DCMS_PIN_PATH . '/includes/settings.php');
 		include_once ( DCMS_PIN_PATH . '/includes/submenu.php');
+		include_once ( DCMS_PIN_PATH . '/includes/enqueue.php');
 		include_once ( DCMS_PIN_PATH . '/includes/shortcode.php');
 	}
 
@@ -75,6 +77,7 @@ final class Loader{
 		new Plugin();
 		new Settings();
 		new SubMenu();
+		new Enqueue();
 		new Shortcode();
 	}
 
