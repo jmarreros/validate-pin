@@ -7,7 +7,7 @@
 <h3><?= $options['dcms_text_title_form'] ?></h3>
 <p class="description"><?= $options['dcms_text_top_des_form'] ?></p>
 
-<form class="frm-pin">
+<form id="frm-pin" class="frm-pin">
     <label for="number">Número de Socio<span>*</span></label>
     <input type="text" id="number" name="number" value="" maxlength="6" tabindex="1" required>
 
@@ -22,8 +22,11 @@
         <input type="checkbox" id="policy" name="policy" required> <label for="policy">Aceptar los <a href="#">Términos y Condiciones</a></label>
     </div>
 
-    <input type="submit" class="button" id="send" name="send" value="Enviar" />
+    <section class="message" style="display:none;">
+    </section>
 
+    <input type="submit" class="button" id="send" name="send" value="Enviar" />
+    <div class="lds-ring" style="display:none;"><div></div><div></div><div></div><div></div></div>
 </form>
 
 </section>

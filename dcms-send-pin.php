@@ -19,6 +19,7 @@ use dcms\pin\includes\Submenu;
 use dcms\pin\includes\Settings;
 use dcms\pin\includes\Enqueue;
 use dcms\pin\includes\Shortcode;
+use dcms\pin\includes\Process;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -48,6 +49,7 @@ final class Loader{
 		include_once ( DCMS_PIN_PATH . '/includes/submenu.php');
 		include_once ( DCMS_PIN_PATH . '/includes/enqueue.php');
 		include_once ( DCMS_PIN_PATH . '/includes/shortcode.php');
+		include_once ( DCMS_PIN_PATH . '/includes/process.php');
 	}
 
 	// Load tex domain
@@ -79,6 +81,7 @@ final class Loader{
 		new SubMenu();
 		new Enqueue();
 		new Shortcode();
+		new Process();
 	}
 
 }
