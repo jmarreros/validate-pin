@@ -1,16 +1,40 @@
 <?php
 
-namespace dcms\update\includes;
+namespace dcms\pin\includes;
 
 class Database{
     private $wpdb;
     private $table_name;
+    private $user_meta;
 
     public function __construct(){
         global $wpdb;
+
         $this->wpdb = $wpdb;
+        $this->user_meta = $this->wpdb->prefix.'usermeta';
     }
 
+
+    // Get data user based in number
+    public function get_data_user( $number ){
+        $sql = "SELECT * FROM $this->user_meta WHERE
+                user_id in
+                (SELECT user_id FROM $this->user_meta  WHERE meta_key = 'number' AND meta_value = $number)
+                AND meta_key in ('number', 'reference', 'pin', 'email')";
+
+        return $this->wpdb->get_results($sql);
+    }
+
+
+    // TODO
+    // verification pending...
+    // Get another email
+    public function get_duplicate_email( $email, $not_id ){
+        $sql = "SELECT user_id FROM $this->user_meta
+                WHERE meta_key = 'email' AND meta_value = $email AND user_id <> $not_id";
+
+        return $this->wpdb->get_var($sql);
+    }
 }
 
 

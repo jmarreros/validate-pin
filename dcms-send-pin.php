@@ -50,6 +50,8 @@ final class Loader{
 		include_once ( DCMS_PIN_PATH . '/includes/enqueue.php');
 		include_once ( DCMS_PIN_PATH . '/includes/shortcode.php');
 		include_once ( DCMS_PIN_PATH . '/includes/process.php');
+		include_once ( DCMS_PIN_PATH . '/includes/database.php');
+		include_once ( DCMS_PIN_PATH . '/helpers/helper.php');
 	}
 
 	// Load tex domain
