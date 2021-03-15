@@ -21,7 +21,6 @@
         })
         .done( function(res) {
             res = JSON.parse(res);
-            console.log(res);
             show_message(res);
         })
         .always( function() {
