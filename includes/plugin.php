@@ -19,6 +19,7 @@ class Plugin{
                     $options = [
                         'dcms_text_title_form'	    => 'Valida tus datos y obtén tu PIN',
                         'dcms_text_top_des_form'	=> 'Luego de llenar los siguientes datos te enviaremos un correo con tu número de PIN',
+                        'dcms_subject_email'        => 'Tu PIN de abonado de Sporting',
                         'dcms_text_email'	        => 'Felicidades, validaste tus datos correctamente, el PIN que usarás será: %pin%, <br/> usa este pin siempre que quieras conectarte al sitio web',
                     ];
                     update_option('dcms_pin_options', $options);

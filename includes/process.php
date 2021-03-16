@@ -53,6 +53,8 @@ class Process{
         }
 
         // Send email
+        $res = $this->send_email_pin($email, $db_pin );
+        $this->validate_send_email($res);
 
 
         // If all is ok
@@ -66,6 +68,29 @@ class Process{
     }
 
 
+    private function send_email_pin( $email, $pin ){
+        $options = get_option( 'dcms_pin_options' );
+
+        $headers = ['Content-Type: text/html; charset=UTF-8'];
+        $subject = $options['dcms_subject_email'];
+        $body    = $options['dcms_text_email'];
+        $body = str_replace( '%pin%', $pin, $body );
+
+        return wp_mail( $email, $subject, $body, $headers );
+    }
+
+
+    // Validate send email
+    private function validate_send_email( $bol ){
+        if ( ! $bol ) {
+            $res = [
+                'status' => 0,
+                'message' => ' ✉️ Error al enviar el correo, inténtelo más tarde'
+            ];
+            echo json_encode($res);
+            wp_die();
+        }
+    }
 
     // Security, verify nonce
     private function validate_nonce(){
@@ -115,8 +140,8 @@ class Process{
         }
     }
 
-    private function validate_update_email($res){
-        if ( ! $res ) {
+    private function validate_update_email($bol){
+        if ( ! $bol ) {
             $res = [
                 'status' => 0,
                 'message' => '✉️ Error al actualizar el correo, posiblemente el correo ya se esta usando'

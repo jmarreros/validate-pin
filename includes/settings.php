@@ -47,6 +47,15 @@ class Settings{
                                 [$this,'dcms_section_cb'],
                                 'dcms_pin_sfields' );
 
+        add_settings_field('dcms_subject_email',
+                            __('Subject email', DCMS_PIN_TEXT_DOMAIN),
+                            [$this, 'dcms_section_input_cb'],
+                            'dcms_pin_sfields',
+                            'dcms_email_section',
+                            ['label_for' => 'dcms_subject_email',
+                                'required' => true]
+        );
+
         add_settings_field('dcms_text_email',
                             __('Email Text', DCMS_PIN_TEXT_DOMAIN),
                             [$this, 'dcms_section_textarea_field'],
