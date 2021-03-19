@@ -3,6 +3,7 @@
 namespace dcms\pin\includes;
 
 use dcms\pin\includes\Database;
+use dcms\pin\helpers\Helper;
 
 // Class for the operations of plugin
 class Process{
@@ -31,7 +32,7 @@ class Process{
         // number exists
         $this->validate_number($user_meta);
 
-        $arr_meta =  meta_to_array($user_meta);
+        $arr_meta =  Helper::meta_to_array($user_meta);
 
         $db_id       = $arr_meta['user_id'];
         $db_identify = $arr_meta['identify'];

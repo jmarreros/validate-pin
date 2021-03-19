@@ -11,8 +11,9 @@ Domain Path: languages
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 */
-
 namespace dcms\pin;
+
+require __DIR__ . '/vendor/autoload.php';
 
 use dcms\pin\includes\Plugin;
 use dcms\pin\includes\Submenu;
@@ -41,19 +42,6 @@ final class Loader{
 		define ('DCMS_SHORTCODE', 'form-pin');
 	}
 
-	// Load all the files we need
-	public function load_includes(){
-		include_once ( DCMS_PIN_PATH . '/helpers/helper.php');
-		include_once ( DCMS_PIN_PATH . '/includes/plugin.php');
-		include_once ( DCMS_PIN_PATH . '/includes/settings.php');
-		include_once ( DCMS_PIN_PATH . '/includes/submenu.php');
-		include_once ( DCMS_PIN_PATH . '/includes/enqueue.php');
-		include_once ( DCMS_PIN_PATH . '/includes/shortcode.php');
-		include_once ( DCMS_PIN_PATH . '/includes/process.php');
-		include_once ( DCMS_PIN_PATH . '/includes/database.php');
-		include_once ( DCMS_PIN_PATH . '/helpers/helper.php');
-	}
-
 	// Load tex domain
 	public function load_domain(){
 		add_action('plugins_loaded', function(){
@@ -75,7 +63,6 @@ final class Loader{
 	// Initialize all
 	public function init(){
 		$this->define_constants();
-		$this->load_includes();
 		$this->load_domain();
 		$this->add_link_plugin();
 		new Plugin();
@@ -90,5 +77,3 @@ final class Loader{
 
 $dcms_pin_process = new Loader();
 $dcms_pin_process->init();
-
-
