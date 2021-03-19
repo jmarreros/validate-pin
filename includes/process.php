@@ -33,11 +33,13 @@ class Process{
 
         $arr_meta =  meta_to_array($user_meta);
 
-        $db_id  = $arr_meta['user_id'];
-        $db_pin = $arr_meta['pin'];
-        $db_nif = $arr_meta['nif'];
-        $db_ref = $arr_meta['reference'];
-        $db_email = $arr_meta['email'];
+        $db_id       = $arr_meta['user_id'];
+        $db_identify = $arr_meta['identify'];
+        $db_pin      = $arr_meta['pin'];
+        $db_nif      = $arr_meta['nif'];
+        $db_ref      = $arr_meta['reference'];
+        $db_email    = $arr_meta['email'];
+
 
         // Validate duplicate email
         $duplicate = $data->get_duplicate_email($email, $db_id);
@@ -53,9 +55,11 @@ class Process{
         }
 
         // Send email
-        $res = $this->send_email_pin($email, $db_pin );
+        $res = $this->send_email_pin($email, $db_identify, $db_pin );
         $this->validate_send_email($res);
 
+        // Save log
+        $data->save_log_pin_sent($email, $db_identify, $db_pin, $db_id);
 
         // If all is ok
         $res = [
@@ -68,17 +72,18 @@ class Process{
     }
 
 
-    private function send_email_pin( $email, $pin ){
+    // Send email with identify and pin
+    private function send_email_pin( $email, $identify, $pin ){
         $options = get_option( 'dcms_pin_options' );
 
         $headers = ['Content-Type: text/html; charset=UTF-8'];
         $subject = $options['dcms_subject_email'];
         $body    = $options['dcms_text_email'];
+        $body = str_replace( '%id%', $identify, $body );
         $body = str_replace( '%pin%', $pin, $body );
 
         return wp_mail( $email, $subject, $body, $headers );
     }
-
 
     // Validate send email
     private function validate_send_email( $bol ){
