@@ -64,6 +64,15 @@ class Database{
         return $res;
     }
 
+    // Select the custom table, lastest rows
+    public function select_log_table( $qty, $order = 'DESC' ){
+        $str = $qty <> 0 ? 'LIMIT '.$qty : '';
+
+        $sql = "SELECT * FROM {$this->table_name} ORDER BY id {$order} {$str}";
+
+        return $this->wpdb->get_results($sql);
+    }
+
     // Init activation create table
     public function create_table(){
 
