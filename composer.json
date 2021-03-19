@@ -10,5 +10,7 @@
     "autoload": {
         "psr-4": {"dcms\\pin\\": "./"}
     },
-    "require": {}
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.17"
+    }
 }

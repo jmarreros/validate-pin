@@ -21,6 +21,7 @@ use dcms\pin\includes\Settings;
 use dcms\pin\includes\Enqueue;
 use dcms\pin\includes\Shortcode;
 use dcms\pin\includes\Process;
+use dcms\pin\includes\Export;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -71,6 +72,7 @@ final class Loader{
 		new Enqueue();
 		new Shortcode();
 		new Process();
+		new Export();
 	}
 
 }
