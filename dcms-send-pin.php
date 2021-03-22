@@ -41,6 +41,7 @@ final class Loader{
 		define ('DCMS_PIN_TEXT_DOMAIN', 'dcms-send-pin' );
 		define ('DCMS_PIN_SUBMENU', 'edit.php?post_type=events_sporting');
 		define ('DCMS_SHORTCODE', 'form-pin');
+		define ('DCMS_PIN_SENT', 'dcms-pin-sent'); // user meta
 	}
 
 	// Load tex domain

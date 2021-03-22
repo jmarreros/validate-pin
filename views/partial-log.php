@@ -57,8 +57,8 @@ $rows = $db->select_log_table(100);
     <span><?= _e('Recent mailings', DCMS_PIN_TEXT_DOMAIN) ?></span>
 
     <form method="post" id="frm-export" class="frm-export" action="<?php echo admin_url( 'admin-post.php' ) ?>" >
-        <input type="hidden" name="action" value="process_export">
-        <button type="submit" class="btn-export button button-secondary"><?php _e('Export all', DCMS_PIN_TEXT_DOMAIN) ?></button>
+        <input type="hidden" name="action" value="process_export_pin_sent">
+        <button type="submit" class="btn-export button button-primary"><?php _e('Export all', DCMS_PIN_TEXT_DOMAIN) ?></button>
     </form>
 </section>
 

@@ -61,6 +61,8 @@ class Database{
         $res = $this->wpdb->insert($this->table_name, $row);
         if ( ! $res) error_log("Ocurrió un error al insertar en $this->table_name");
 
+        // Update in usermeta
+        update_user_meta($db_id, DCMS_PIN_SENT, true);
         return $res;
     }
 

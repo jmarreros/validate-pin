@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Export{
 
     public function __construct(){
-        add_action('admin_post_process_export', [$this, 'process_export_data']);
+        add_action('admin_post_process_export_pin_sent', [$this, 'process_export_data']);
     }
 
     // Export data
@@ -46,9 +46,6 @@ class Export{
         header('Content-Disposition: attachment;filename='. $filename);
         header('Cache-Control: max-age=0');
         $writer->save('php://output');
-
-        wp_redirect( admin_url(DCMS_PIN_SUBMENU).'&page=send-pin');
-        wp_die();
     }
 
 }
