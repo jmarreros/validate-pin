@@ -62,7 +62,7 @@ class Settings{
                             'dcms_pin_sfields',
                             'dcms_email_section',
                             ['label_for' => 'dcms_text_email',
-                             'description' => __('You can use <strong>%pin%</strong> to include the PIN number between the text', DCMS_PIN_TEXT_DOMAIN)]
+                             'description' => __('You can use <strong>%id%</strong> and <strong>%pin%</strong> to include the Identify and the PIN number between the text', DCMS_PIN_TEXT_DOMAIN)]
         );
     }
 

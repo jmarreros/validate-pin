@@ -13,7 +13,7 @@ class Shortcode{
 
     // Create shortcode
     public function create_form_shortcode(){
-        add_shortcode( DCMS_SHORTCODE, [$this, 'show_pin_form'] );
+        add_shortcode( DCMS_SHORTCODE_FORM_PIN, [$this, 'show_pin_form'] );
     }
 
     // Show form
