@@ -19,7 +19,7 @@ class Shortcode{
     // Show form
     public function show_pin_form($atts , $content){
 	    wp_localize_script('pin-script',
-                            'dcms_vars',
+                            'dcms_fpin',
                             [ 'ajaxurl'=>admin_url('admin-ajax.php'),
                               'nonce' => wp_create_nonce('ajax-nonce-pin')]);
         wp_enqueue_script('pin-script');

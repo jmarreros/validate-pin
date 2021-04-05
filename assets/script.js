@@ -4,18 +4,18 @@
         e.preventDefault();
 
 		$.ajax({
-			url : dcms_vars.ajaxurl,
+			url : dcms_fpin.ajaxurl,
 			type: 'post',
 			data: {
 				action : 'dcms_ajax_validate_pin',
-                nonce : dcms_vars.nonce,
+                nonce : dcms_fpin.nonce,
                 number: $('#number').val(),
                 ref   : $('#ref').val(),
                 email : $('#email').val()
 			},
             beforeSend: function(){
-                $('.lds-ring').show();
-                $('#send.button').val('Enviando ...').prop('disabled', true);;
+                $('.container-pin .lds-ring').show();
+                $('.container-pin #send.button').val('Enviando ...').prop('disabled', true);;
                 $('section.message').hide();
             }
         })
@@ -24,8 +24,8 @@
             show_message(res);
         })
         .always( function() {
-            $('.lds-ring').hide();
-            $('#send.button').val('Enviar').prop('disabled', false);;
+            $('.container-pin .lds-ring').hide();
+            $('.container-pin #send.button').val('Enviar').prop('disabled', false);;
         });
 
 	});
@@ -33,12 +33,12 @@
     // Aux function to show message
     function show_message(res){
         if (res.status == 0 ) {
-            $('section.message').addClass('error');
+            $('.container-pin section.message').addClass('error');
         } else {
-            $('section.message').removeClass('error');
+            $('.container-pin section.message').removeClass('error');
         }
 
-        $('section.message').show().html(res.message);
+        $('.container-pin section.message').show().html(res.message);
     }
 
 })(jQuery);
