@@ -8,8 +8,25 @@ use dcms\pin\includes\Database;
 class Plugin{
 
     public function __construct(){
+        // Mail configurations
+        add_filter( 'wp_mail_from', [ $this, 'dcms_sender_email'] );
+        add_filter( 'wp_mail_from_name', [ $this, 'dcms_sender_name'] );
+
+        // Activation/Desactivation
         register_activation_hook( DCMS_PIN_BASE_NAME, [ $this, 'dcms_activation_plugin'] );
         register_deactivation_hook( DCMS_PIN_BASE_NAME, [ $this, 'dcms_deactivation_plugin'] );
+    }
+
+    // Sender email configuration
+    public function dcms_sender_email($original_email_address){
+        $options = get_option( 'dcms_pin_options' );
+        return $options['dcms_sender_email'];
+    }
+
+    // Sender name configuration
+    public function dcms_sender_name($original_email_from){
+        $options = get_option( 'dcms_pin_options' );
+        return $options['dcms_sender_name'];
     }
 
     // Activate plugin - create options and database table
@@ -19,6 +36,8 @@ class Plugin{
 
         if ( empty($options) ){
             $options = [
+                'dcms_sender_email'         => 'admin@gestionabonados.realsporting.com',
+                'dcms_sender_name'          => 'Real Sporting de Gijón',
                 'dcms_text_title_form'	    => 'Valida tus datos y obtén tu PIN',
                 'dcms_text_top_des_form'	=> 'Luego de llenar los siguientes datos te enviaremos un correo con tu número de PIN',
                 'dcms_subject_email'        => 'Tu PIN de abonado de Sporting',

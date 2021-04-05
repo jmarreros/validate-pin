@@ -47,6 +47,24 @@ class Settings{
                                 [$this,'dcms_section_cb'],
                                 'dcms_pin_sfields' );
 
+        add_settings_field('dcms_sender_email',
+                                __('Sender email', DCMS_PIN_TEXT_DOMAIN),
+                                [$this, 'dcms_section_input_cb'],
+                                'dcms_pin_sfields',
+                                'dcms_email_section',
+                                ['label_for' => 'dcms_sender_email',
+                                    'required' => true]
+        );
+
+        add_settings_field('dcms_sender_name',
+                            __('Sender name', DCMS_PIN_TEXT_DOMAIN),
+                            [$this, 'dcms_section_input_cb'],
+                            'dcms_pin_sfields',
+                            'dcms_email_section',
+                            ['label_for' => 'dcms_sender_name',
+                                'required' => true]
+        );
+
         add_settings_field('dcms_subject_email',
                             __('Subject email', DCMS_PIN_TEXT_DOMAIN),
                             [$this, 'dcms_section_input_cb'],

@@ -37,7 +37,10 @@ class Database{
 
     // Update email user
     public function update_email_user( $email, $user_id){
+
+        add_filter( 'send_email_change_email', '__return_false' );
         $res = wp_update_user( ['ID' => $user_id, 'user_email' => $email] );
+        add_filter( 'send_email_change_email', '__return_true' );
 
         if ( is_wp_error($res) ) {
             error_log($res->get_error_message());

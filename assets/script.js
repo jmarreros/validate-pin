@@ -16,7 +16,7 @@
             beforeSend: function(){
                 $('.container-pin .lds-ring').show();
                 $('.container-pin #send.button').val('Enviando ...').prop('disabled', true);;
-                $('section.message').hide();
+                $('.container-pin section.message').hide();
             }
         })
         .done( function(res) {
