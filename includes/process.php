@@ -9,14 +9,58 @@ use dcms\pin\helpers\Helper;
 class Process{
 
     public function __construct(){
-        add_action('wp_ajax_nopriv_dcms_ajax_validate_pin',[ $this, 'validate_data_send_pin' ]);
-        add_action('wp_ajax_dcms_ajax_validate_pin',[ $this, 'validate_data_send_pin' ]);
+        add_action('wp_ajax_nopriv_dcms_ajax_validate_pin',[ $this, 'process_form_send_pin' ]);
+        add_action('wp_ajax_dcms_ajax_validate_pin',[ $this, 'process_form_send_pin' ]);
+
+        add_action('wp_ajax_nopriv_dcms_ajax_validate_login',[ $this, 'process_form_login' ]);
     }
 
-    public function validate_data_send_pin(){
+    // Login Form
+    // ==========
+
+    public function process_form_login(){
 
         // Validate nonce
-        $this->validate_nonce();
+        $this->validate_nonce('ajax-nonce-login');
+
+        // First
+        $info = array();
+        $info['user_login'] = $_POST['username'];
+        $info['user_password'] = $_POST['password'];
+        $info['remember'] = false;
+
+        $user_signon = wp_signon( $info, false );
+
+        if ( ! is_wp_error( $user_signon ) ){
+            wp_set_current_user($user_signon->ID);
+            wp_set_auth_cookie($user_signon->ID);
+
+            // All is ok
+            $res = [
+                'status' => 1,
+                'message' => "Redireccionando",
+            ];
+
+        } else {
+            $res = [
+                'status' => 0,
+                'message' => "Identificación o PIN no válido",
+            ];
+        }
+
+        echo json_encode($res);
+
+        wp_die();
+    }
+
+
+    // PIN Form
+    // ========
+
+    public function process_form_send_pin(){
+
+        // Validate nonce
+        $this->validate_nonce('ajax-nonce-pin');
 
         // Get data
         $number = intval($_POST['number']);
@@ -99,8 +143,8 @@ class Process{
     }
 
     // Security, verify nonce
-    private function validate_nonce(){
-        if ( ! wp_verify_nonce( $_POST['nonce'], 'ajax-nonce-pin' ) ) {
+    private function validate_nonce( $nonce_name ){
+        if ( ! wp_verify_nonce( $_POST['nonce'], $nonce_name ) ) {
             $res = [
                 'status' => 0,
                 'message' => '✋ Error nonce validation!!'

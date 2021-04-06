@@ -42,11 +42,17 @@ function tab_settings() { ?>
     }
     </style>
 
-    <h2>Shortcode</h2>
+    <h2>Shortcodes</h2>
     <hr>
     <section class="dcms-shortcode">
     <small><?php _e('You can use this shortcode to show the form: ') ?></small>
     <strong>[<?php echo DCMS_SHORTCODE_FORM_PIN ?>]</strong>
+    </section>
+
+    <hr>
+    <section class="dcms-shortcode">
+    <small><?php _e('You can use this shortcode to show the login form: ') ?></small>
+    <strong>[<?php echo DCMS_SHORTCODE_FORM_LOGIN ?>]</strong>
     </section>
 
     <form action="options.php" method="post">
@@ -61,9 +67,7 @@ function tab_settings() { ?>
 <?php
 //log tab
 function tab_log(){
-
-    include_once('partial-log.php');
-
+    include_once('settings-log.php');
 }?>
 
 <?php

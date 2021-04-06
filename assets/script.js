@@ -1,7 +1,50 @@
 (function($){
 
-    $("#frm-pin").submit(function(e){
+    // Login Form
+    $('#frm-login').submit(function(e){
         e.preventDefault();
+
+        const sspin     = '.container-login .lds-ring';
+        const sbutton   = '.container-login #submit.button';
+        const smessage  = '.container-login section.message';
+
+        $.ajax({
+			url : dcms_flogin.ajaxurl,
+			type: 'post',
+			data: {
+				action  : 'dcms_ajax_validate_login',
+                nonce   : dcms_flogin.nonce,
+                username: $('#username').val(),
+                password: $('#password').val(),
+			},
+            beforeSend: function(){
+                $(sspin).show();
+                $(sbutton).val('Validando ...').prop('disabled', true);;
+                $(smessage).hide();
+            }
+        })
+        .done( function(res) {
+            res = JSON.parse(res);
+            show_message(res, smessage);
+
+            if (res.status == 1){
+                window.location.href = dcms_flogin.url;
+            }
+        })
+        .always( function() {
+            $(sspin).hide();
+            $(sbutton).val('Ingresar').prop('disabled', false);;
+        });
+
+    })
+
+    // PIN Form
+    $('#frm-pin').submit(function(e){
+        e.preventDefault();
+
+        const sspin     = '.container-pin .lds-ring';
+        const sbutton   = '.container-pin #send.button';
+        const smessage  = '.container-pin section.message';
 
 		$.ajax({
 			url : dcms_fpin.ajaxurl,
@@ -14,31 +57,31 @@
                 email : $('#email').val()
 			},
             beforeSend: function(){
-                $('.container-pin .lds-ring').show();
-                $('.container-pin #send.button').val('Enviando ...').prop('disabled', true);;
-                $('.container-pin section.message').hide();
+                $(sspin).show();
+                $(sbutton).val('Enviando ...').prop('disabled', true);;
+                $(smessage).hide();
             }
         })
         .done( function(res) {
             res = JSON.parse(res);
-            show_message(res);
+            show_message(res, smessage);
         })
         .always( function() {
-            $('.container-pin .lds-ring').hide();
-            $('.container-pin #send.button').val('Enviar').prop('disabled', false);;
+            $(sspin).hide();
+            $(sbutton).val('Enviar').prop('disabled', false);;
         });
 
 	});
 
     // Aux function to show message
-    function show_message(res){
+    function show_message(res, smessage){
         if (res.status == 0 ) {
-            $('.container-pin section.message').addClass('error');
+            $(smessage).addClass('error');
         } else {
-            $('.container-pin section.message').removeClass('error');
+            $(smessage).removeClass('error');
         }
 
-        $('.container-pin section.message').show().html(res.message);
+        $(smessage).show().html(res.message);
     }
 
 })(jQuery);

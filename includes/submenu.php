@@ -15,8 +15,8 @@ class Submenu{
     public function register_submenu(){
         add_submenu_page(
             DCMS_PIN_SUBMENU,
-            __('Send Pin',DCMS_PIN_TEXT_DOMAIN),
-            __('Send Pin',DCMS_PIN_TEXT_DOMAIN),
+            __('Forms PIN',DCMS_PIN_TEXT_DOMAIN),
+            __('Forms PIN',DCMS_PIN_TEXT_DOMAIN),
             'manage_options',
             'send-pin',
             [$this, 'submenu_page_callback']
@@ -25,6 +25,6 @@ class Submenu{
 
     // Callback, show view
     public function submenu_page_callback(){
-        include_once (DCMS_PIN_PATH. '/views/main-screen.php');
+        include_once (DCMS_PIN_PATH. '/views/settings-main.php');
     }
 }

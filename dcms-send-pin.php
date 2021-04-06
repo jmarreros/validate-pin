@@ -38,10 +38,13 @@ final class Loader{
 		define ('DCMS_PIN_PATH', plugin_dir_path( __FILE__ ));
 		define ('DCMS_PIN_URL', plugin_dir_url( __FILE__ ));
 		define ('DCMS_PIN_BASE_NAME', plugin_basename( __FILE__ ));
-		define ('DCMS_PIN_TEXT_DOMAIN', 'dcms-send-pin' );
 		define ('DCMS_PIN_SUBMENU', 'edit.php?post_type=events_sporting');
-		define ('DCMS_SHORTCODE_FORM_PIN', 'sporting-form-pin');
 		define ('DCMS_PIN_SENT', 'dcms-pin-sent'); // user meta
+
+		define ('DCMS_PIN_TEXT_DOMAIN', 'dcms-send-pin' );
+
+		define ('DCMS_SHORTCODE_FORM_PIN', 'sporting-form-pin');
+		define ('DCMS_SHORTCODE_FORM_LOGIN', 'sporting-form-login');
 	}
 
 	// Load tex domain

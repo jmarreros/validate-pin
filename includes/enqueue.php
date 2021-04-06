@@ -11,13 +11,13 @@ class Enqueue{
 
     public function register_scripts(){
 
-        wp_register_script('pin-script',
+        wp_register_script('forms-script',
                             DCMS_PIN_URL.'/assets/script.js',
                             ['jquery'],
                             DCMS_PIN_VERSION,
                             true);
 
-        wp_register_style('pin-style',
+        wp_register_style('forms-style',
                             DCMS_PIN_URL.'/assets/style.css',
                             [],
                             DCMS_PIN_VERSION );
