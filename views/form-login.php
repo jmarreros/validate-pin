@@ -16,10 +16,12 @@
         <section class="message" style="display:none;">
         </section>
 
-        <input class="button" type="submit" name="submit" id="submit" value="<?= __('Ingresar', DCMS_PIN_TEXT_DOMAIN) ?>">
-        <a class="button" href="<?= $url_register ?>" name="register" id="register" >
-            <?= __('Solicita tu PIN', DCMS_PIN_TEXT_DOMAIN) ?>
-        </a>
+        <section>
+            <input class="button" type="submit" name="submit" id="submit" value="<?= __('Ingresar', DCMS_PIN_TEXT_DOMAIN) ?>">
+            <a class="button register" href="<?= $url_register ?>" name="register" id="register" >
+                <?= __('Solicita tu PIN', DCMS_PIN_TEXT_DOMAIN) ?>
+            </a>
+        </section>
 
         <!--spinner-->
         <div class="lds-ring" style="display:none;"><div></div><div></div><div></div><div></div></div>

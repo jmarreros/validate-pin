@@ -26,7 +26,13 @@ class Shortcode{
         wp_enqueue_script('forms-script');
 
         wp_enqueue_style('forms-style');
-        include_once DCMS_PIN_PATH.'/views/form-pin.php';
+
+        ob_start();
+            include_once DCMS_PIN_PATH.'/views/form-pin.php';
+            $html_code = ob_get_contents();
+        ob_end_clean();
+
+        return $html_code;
     }
 
     // Show login form
@@ -35,7 +41,7 @@ class Shortcode{
         if ( ! is_user_logged_in() ){
 
             $atts = shortcode_atts(['redirect' => home_url(),
-            'register' => home_url().'/enviar-pin/'], $atts, DCMS_SHORTCODE_FORM_LOGIN );
+                                    'register' => home_url().'/enviar-pin/'], $atts, DCMS_SHORTCODE_FORM_LOGIN );
 
             $url_redirect = $atts['redirect'];
             $url_register = $atts['register'];
@@ -49,7 +55,13 @@ class Shortcode{
             wp_enqueue_script('forms-script');
             wp_enqueue_style('forms-style');
 
-            include_once DCMS_PIN_PATH.'/views/form-login.php';
+            ob_start();
+                include_once DCMS_PIN_PATH.'/views/form-login.php';
+                $html_code = ob_get_contents();
+            ob_end_clean();
+
+            return $html_code;
+
         }
 
     }

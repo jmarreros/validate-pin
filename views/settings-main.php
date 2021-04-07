@@ -52,7 +52,14 @@ function tab_settings() { ?>
     <hr>
     <section class="dcms-shortcode">
     <small><?php _e('You can use this shortcode to show the login form: ') ?></small>
-    <strong>[<?php echo DCMS_SHORTCODE_FORM_LOGIN ?>]</strong>
+    <strong>[<?php echo DCMS_SHORTCODE_FORM_LOGIN ?>] </strong>
+    <p>
+    <strong>Optional:</strong> redirect='#' register='#'
+    </p>
+    <p>
+        Example:<br>
+        [sporting-form-login redirect="/" register="/enviar-pin"]
+    </p>
     </section>
 
     <form action="options.php" method="post">
