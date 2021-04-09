@@ -54,11 +54,14 @@ class Database{
     }
 
     // Insert log table
-    public function save_log_pin_sent($email, $identify, $pin, $db_id){
+    public function save_log_pin_sent($email, $identify, $pin, $number, $reference, $nif, $db_id){
         $row = [];
         $row['id_user'] = $db_id;
         $row['identify'] = $identify;
         $row['pin'] = $pin;
+        $row['number'] = $number;
+        $row['reference'] = $reference;
+        $row['nif'] = $nif;
         $row['email'] = $email;
 
         $res = $this->wpdb->insert($this->table_name, $row);
@@ -86,8 +89,12 @@ class Database{
                     `id_user` int(10) unsigned DEFAULT NULL,
                     `identify` int(10) unsigned DEFAULT NULL,
                     `pin` int(10) unsigned DEFAULT NULL,
+                    `number` int(10) unsigned DEFAULT NULL,
+                    `reference` varchar(50) DEFAULT NULL,
+                    `nif` varchar(50) DEFAULT NULL,
                     `email` varchar(100) DEFAULT NULL,
                     `date` datetime DEFAULT CURRENT_TIMESTAMP,
+                    `terms` tinyint(1) DEFAULT 1,
                     PRIMARY KEY (`id`)
           )";
 

@@ -7,10 +7,10 @@
 <form id="frm-login" class="frm-login">
 
         <h3><?= __('Introduce tus datos para acceder', DCMS_PIN_TEXT_DOMAIN) ?></h3>
-        <label for="username"><?= __('Identify', DCMS_PIN_TEXT_DOMAIN) ?></label>
+        <label for="username"><?= __('Identificativo', DCMS_PIN_TEXT_DOMAIN) ?> <span>*</span></label>
         <input id="username" type="text" name="username" required>
 
-        <label for="password"><?= __('PIN', DCMS_PIN_TEXT_DOMAIN) ?></label>
+        <label for="password"><?= __('PIN', DCMS_PIN_TEXT_DOMAIN) ?> <span>*</span></label>
         <input id="password" type="password" name="password" required>
 
         <section class="message" style="display:none;">

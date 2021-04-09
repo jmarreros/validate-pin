@@ -23,10 +23,14 @@ class Export{
         $sheet = $spreadsheet->getActiveSheet();
 
         // Headers
-        $sheet->setCellValue('A1', 'Identificador');
+        $sheet->setCellValue('A1', 'Identificativo');
         $sheet->setCellValue('B1', 'PIN');
         $sheet->setCellValue('C1', 'Correo');
-        $sheet->setCellValue('D1', 'Fecha');
+        $sheet->setCellValue('D1', 'Número');
+        $sheet->setCellValue('E1', 'Referencia');
+        $sheet->setCellValue('F1', 'NIF');
+        $sheet->setCellValue('G1', 'Fecha');
+        $sheet->setCellValue('H1', 'Aceptar Terminos');
 
         // Get data from table
         $data = $db->select_log_table(0, 'ASC');
@@ -36,7 +40,11 @@ class Export{
             $sheet->setCellValue('A'.$i, $row->identify);
             $sheet->setCellValue('B'.$i, $row->pin);
             $sheet->setCellValue('C'.$i, $row->email);
-            $sheet->setCellValue('D'.$i, $row->date);
+            $sheet->setCellValue('D'.$i, $row->number);
+            $sheet->setCellValue('E'.$i, $row->reference);
+            $sheet->setCellValue('F'.$i, $row->nif);
+            $sheet->setCellValue('G'.$i, $row->date);
+            $sheet->setCellValue('H'.$i, $row->terms);
             $i++;
         }
 

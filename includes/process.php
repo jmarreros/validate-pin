@@ -38,7 +38,7 @@ class Process{
             // All is ok
             $res = [
                 'status' => 1,
-                'message' => "Redireccionando",
+                'message' => "Redireccionando...",
             ];
 
         } else {
@@ -81,8 +81,9 @@ class Process{
         $db_id       = $arr_meta['user_id'];
         $db_identify = $arr_meta['identify'];
         $db_pin      = $arr_meta['pin'];
-        $db_nif      = $arr_meta['nif'];
+        $db_number   = $arr_meta['number'];
         $db_ref      = $arr_meta['reference'];
+        $db_nif      = $arr_meta['nif'];
         $db_email    = $arr_meta['email'];
 
 
@@ -104,7 +105,7 @@ class Process{
         $this->validate_send_email($res);
 
         // Save log
-        $data->save_log_pin_sent($email, $db_identify, $db_pin, $db_id);
+        $data->save_log_pin_sent($email, $db_identify, $db_pin, $db_number, $db_ref, $db_nif, $db_id);
 
         // If all is ok
         $res = [

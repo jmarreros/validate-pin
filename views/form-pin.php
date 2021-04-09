@@ -25,7 +25,7 @@
     <section class="message" style="display:none;">
     </section>
 
-    <input type="submit" class="button" id="send" name="send" value="<?php _e('Send', DCMS_PIN_TEXT_DOMAIN) ?>" />
+    <input type="submit" class="button" id="send" name="send" value="<?php _e('Enviar', DCMS_PIN_TEXT_DOMAIN) ?>" />
     <!--spinner-->
     <div class="lds-ring" style="display:none;"><div></div><div></div><div></div><div></div></div>
 </form>

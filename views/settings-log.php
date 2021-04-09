@@ -63,7 +63,7 @@ $rows = $db->select_log_table(100);
 </section>
 
 <?php
-    $fields = [ 'identify', 'pin', 'email', 'date' ];
+    $fields = [ 'Identificativo', 'PIN', 'correo', 'Número', 'Referencia', 'NIF', 'fecha' ];
 ?>
 
 <table class="dcms-table">
@@ -79,6 +79,9 @@ $rows = $db->select_log_table(100);
         <td><?= $row->identify ?></td>
         <td><?= $row->pin ?></td>
         <td><?= $row->email ?></td>
+        <td><?= $row->number ?></td>
+        <td><?= $row->reference ?></td>
+        <td><?= $row->nif ?></td>
         <td><?= $row->date ?></td>
     </tr>
 <?php endforeach; ?>

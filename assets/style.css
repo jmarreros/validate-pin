@@ -1,5 +1,5 @@
 .container-pin {
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
   padding: 10px 20px;
   padding-bottom: 20px;
 }
@@ -14,6 +14,7 @@
   font-size: 14px;
 }
 
+.frm-login label span,
 .frm-pin label span {
   color: darkred;
   margin-left: 10px;
@@ -23,7 +24,7 @@
 .frm-pin .button {
   cursor: pointer;
   margin-top: 20px;
-  background-color: #0073aa;
+  background-color: #bc2427;
   padding: 10px 20px;
   color: white;
   border: none;
@@ -36,7 +37,12 @@
 
 .frm-login .button:hover,
 .frm-pin .button:hover {
-  background-color: #034767;
+  background-color: #8d191f;
+}
+
+.frm-login label {
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .frm-pin .container-policy {
@@ -76,7 +82,7 @@
 }
 
 .frm-login .button.register {
-  background-color: #034767;
+  background-color: #bc2427;
 }
 
 /*Spinner*/
