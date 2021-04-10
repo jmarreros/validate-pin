@@ -19,13 +19,13 @@
     <input type="email" id="email" name="email" value="" maxlength="100" tabindex="3" required>
 
     <div class="container-policy">
-        <input type="checkbox" id="policy" name="policy" required> <label for="policy">Aceptar los <a href="#">Términos y Condiciones</a></label>
+        <input type="checkbox" id="policy" name="policy" required> <label for="policy">Aceptar los <a href="/politica-de-privacidad-del-club/">Términos y Condiciones</a></label>
     </div>
 
     <section class="message" style="display:none;">
     </section>
 
-    <input type="submit" class="button" id="send" name="send" value="<?php _e('Enviar', DCMS_PIN_TEXT_DOMAIN) ?>" />
+    <input type="submit" class="button" id="send" name="send" value="<?php _e('Enviar', 'dcms-send-pin') ?>" />
     <!--spinner-->
     <div class="lds-ring" style="display:none;"><div></div><div></div><div></div><div></div></div>
 </form>

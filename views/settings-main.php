@@ -4,7 +4,7 @@ if ( ! current_user_can( 'manage_options' ) ) return; // only administrator
 
 $plugin_tabs = [];
 $plugin_tabs['log'] = "Log";
-$plugin_tabs['settings'] = "Settings";
+$plugin_tabs['settings'] = __("Settings", 'dcms-send-pin');
 
 // Get Current tab
 $current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'log';
@@ -12,7 +12,7 @@ $current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'log';
 ?>
 <div class="wrap">
 
-<h1><?php _e('Form PIN options', DCMS_PIN_TEXT_DOMAIN) ?></h1>
+<h1><?php _e('Form PIN options', 'dcms-send-pin') ?></h1>
 
 <?php
 plugin_options_tabs($current_tab, $plugin_tabs);

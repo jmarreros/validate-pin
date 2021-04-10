@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Sporting Send Pin
-Plugin URI: https://decodecms.com
+Plugin URI: https://webservi.es
 Description: Send a pin number to the user
 Version: 1.0
-Author: Jhon Marreros Guzmán
+Author: Webservi.es
 Author URI: https://decodecms.com
 Text Domain: dcms-send-pin
 Domain Path: languages
@@ -41,7 +41,6 @@ final class Loader{
 		define ('DCMS_PIN_SUBMENU', 'edit.php?post_type=events_sporting');
 		define ('DCMS_PIN_SENT', 'dcms-pin-sent'); // user meta
 
-		define ('DCMS_PIN_TEXT_DOMAIN', 'dcms-send-pin' );
 
 		define ('DCMS_SHORTCODE_FORM_PIN', 'sporting-form-pin');
 		define ('DCMS_SHORTCODE_FORM_LOGIN', 'sporting-form-login');
@@ -51,7 +50,7 @@ final class Loader{
 	public function load_domain(){
 		add_action('plugins_loaded', function(){
 			$path_languages = dirname(DCMS_PIN_BASE_NAME).'/languages/';
-			load_plugin_textdomain(DCMS_PIN_TEXT_DOMAIN, false, $path_languages );
+			load_plugin_textdomain('dcms-send-pin', false, $path_languages );
 		});
 	}
 
@@ -60,7 +59,7 @@ final class Loader{
 		add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), function( $links ){
 			$cad = (strpos(DCMS_PIN_SUBMENU,'?')) ? "&" : '?';
 			return array_merge( array(
-				'<a href="' . esc_url( admin_url( DCMS_PIN_SUBMENU . $cad . 'page=send-pin' ) ) . '">' . __( 'Settings', DCMS_PIN_TEXT_DOMAIN ) . '</a>'
+				'<a href="' . esc_url( admin_url( DCMS_PIN_SUBMENU . $cad . 'page=send-pin' ) ) . '">' . __( 'Settings', 'dcms-send-pin' ) . '</a>'
 			), $links );
 		} );
 	}

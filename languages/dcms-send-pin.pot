@@ -1,0 +1,116 @@
+# Copyright (C) 2021 Webservi.es
+# This file is distributed under the same license as the Sporting Send Pin plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sporting Send Pin 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dcms-send-pin\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-04-10T15:06:46+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.1.0\n"
+"X-Domain: dcms-send-pin\n"
+
+#. Plugin Name of the plugin
+msgid "Sporting Send Pin"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://webservi.es"
+msgstr ""
+
+#. Description of the plugin
+msgid "Send a pin number to the user"
+msgstr ""
+
+#. Author of the plugin
+msgid "Webservi.es"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://decodecms.com"
+msgstr ""
+
+#: dcms-send-pin.php:62
+msgid "Settings"
+msgstr ""
+
+#: includes/Submenu.php:18
+#: includes/Submenu.php:19
+msgid "Forms PIN"
+msgstr ""
+
+#: includes/Settings.php:21
+msgid "Form Text"
+msgstr ""
+
+#: includes/Settings.php:26
+msgid "Form title"
+msgstr ""
+
+#: includes/Settings.php:36
+msgid "Form Description"
+msgstr ""
+
+#: includes/Settings.php:46
+msgid "Default Text email"
+msgstr ""
+
+#: includes/Settings.php:51
+msgid "Sender email"
+msgstr ""
+
+#: includes/Settings.php:60
+msgid "Sender name"
+msgstr ""
+
+#: includes/Settings.php:69
+msgid "Subject email"
+msgstr ""
+
+#: includes/Settings.php:78
+msgid "Email Text"
+msgstr ""
+
+#: includes/Settings.php:83
+msgid "You can use <strong>%id%</strong> and <strong>%pin%</strong> to include the Identify and the PIN number between the text"
+msgstr ""
+
+#: views/form-login.php:9
+msgid "Introduce tus datos para acceder"
+msgstr ""
+
+#: views/form-login.php:10
+msgid "Identificativo"
+msgstr ""
+
+#: views/form-login.php:13
+msgid "PIN"
+msgstr ""
+
+#: views/form-login.php:20
+msgid "Ingresar"
+msgstr ""
+
+#: views/form-login.php:22
+msgid "Solicita tu PIN"
+msgstr ""
+
+#: views/form-pin.php:28
+msgid "Enviar"
+msgstr ""
+
+#: views/settings-log.php:57
+msgid "Recent mailings"
+msgstr ""
+
+#: views/settings-log.php:61
+msgid "Export all"
+msgstr ""
+
+#: views/settings-main.php:15
+msgid "Form PIN options"
+msgstr ""

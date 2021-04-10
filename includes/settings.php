@@ -18,12 +18,12 @@ class Settings{
 
         // Excel Fields section
         add_settings_section('dcms_form_pin_section',
-                            __('Form Text', DCMS_PIN_TEXT_DOMAIN),
+                            __('Form Text', 'dcms-send-pin'),
                             [$this,'dcms_section_cb'],
                             'dcms_pin_sfields' );
 
         add_settings_field('dcms_text_title_form',
-                            __('Form title', DCMS_PIN_TEXT_DOMAIN),
+                            __('Form title', 'dcms-send-pin'),
                             [$this, 'dcms_section_input_cb'],
                             'dcms_pin_sfields',
                             'dcms_form_pin_section',
@@ -33,7 +33,7 @@ class Settings{
 
 
         add_settings_field('dcms_text_top_des_form',
-                            __('Form Description', DCMS_PIN_TEXT_DOMAIN),
+                            __('Form Description', 'dcms-send-pin'),
                             [$this, 'dcms_section_input_cb'],
                             'dcms_pin_sfields',
                             'dcms_form_pin_section',
@@ -43,12 +43,12 @@ class Settings{
 
 
         add_settings_section('dcms_email_section',
-                        __('Default Text email', DCMS_PIN_TEXT_DOMAIN),
+                        __('Default Text email', 'dcms-send-pin'),
                                 [$this,'dcms_section_cb'],
                                 'dcms_pin_sfields' );
 
         add_settings_field('dcms_sender_email',
-                                __('Sender email', DCMS_PIN_TEXT_DOMAIN),
+                                __('Sender email', 'dcms-send-pin'),
                                 [$this, 'dcms_section_input_cb'],
                                 'dcms_pin_sfields',
                                 'dcms_email_section',
@@ -57,7 +57,7 @@ class Settings{
         );
 
         add_settings_field('dcms_sender_name',
-                            __('Sender name', DCMS_PIN_TEXT_DOMAIN),
+                            __('Sender name', 'dcms-send-pin'),
                             [$this, 'dcms_section_input_cb'],
                             'dcms_pin_sfields',
                             'dcms_email_section',
@@ -66,7 +66,7 @@ class Settings{
         );
 
         add_settings_field('dcms_subject_email',
-                            __('Subject email', DCMS_PIN_TEXT_DOMAIN),
+                            __('Subject email', 'dcms-send-pin'),
                             [$this, 'dcms_section_input_cb'],
                             'dcms_pin_sfields',
                             'dcms_email_section',
@@ -75,12 +75,12 @@ class Settings{
         );
 
         add_settings_field('dcms_text_email',
-                            __('Email Text', DCMS_PIN_TEXT_DOMAIN),
+                            __('Email Text', 'dcms-send-pin'),
                             [$this, 'dcms_section_textarea_field'],
                             'dcms_pin_sfields',
                             'dcms_email_section',
                             ['label_for' => 'dcms_text_email',
-                             'description' => __('You can use <strong>%id%</strong> and <strong>%pin%</strong> to include the Identify and the PIN number between the text', DCMS_PIN_TEXT_DOMAIN)]
+                             'description' => __('You can use <strong>%id%</strong> and <strong>%pin%</strong> to include the Identify and the PIN number between the text', 'dcms-send-pin')]
         );
     }
 

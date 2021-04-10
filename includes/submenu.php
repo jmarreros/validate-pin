@@ -15,8 +15,8 @@ class Submenu{
     public function register_submenu(){
         add_submenu_page(
             DCMS_PIN_SUBMENU,
-            __('Forms PIN',DCMS_PIN_TEXT_DOMAIN),
-            __('Forms PIN',DCMS_PIN_TEXT_DOMAIN),
+            __('Forms PIN','dcms-send-pin'),
+            __('Forms PIN','dcms-send-pin'),
             'manage_options',
             'send-pin',
             [$this, 'submenu_page_callback']
