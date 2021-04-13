@@ -64,7 +64,7 @@ class Process{
 
         // Get data
         $number = intval($_POST['number']);
-        $ref    = sanitize_text_field($_POST['ref']); // NIF or Reference
+        $ref    = strtoupper(sanitize_text_field($_POST['ref'])); // NIF or Reference
         $email  = strtolower(sanitize_text_field($_POST['email']));
 
         // validate number <> 0
@@ -82,10 +82,9 @@ class Process{
         $db_identify = $arr_meta['identify'];
         $db_pin      = $arr_meta['pin'];
         $db_number   = $arr_meta['number'];
-        $db_ref      = $arr_meta['reference'];
-        $db_nif      = $arr_meta['nif'];
-        $db_email    = $arr_meta['email'];
-
+        $db_ref      = strtoupper($arr_meta['reference']);
+        $db_nif      = strtoupper($arr_meta['nif']);
+        $db_email    = strtolower($arr_meta['email']);
 
         // Validate duplicate email
         $duplicate = $data->get_duplicate_email($email, $db_id);
