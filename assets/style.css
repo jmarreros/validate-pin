@@ -81,8 +81,22 @@
   border-color: #831c2c;
 }
 
-.frm-login .button.register {
-  background-color: #bc2427;
+.frm-login .link {
+  color: #bc2427;
+}
+
+.frm-login .link:hover {
+  color: #8d191f;
+}
+
+.frm-login .link-container span {
+  font-size: 12px;
+}
+
+.frm-login .link-container {
+  margin-top: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
 }
 
 /*Spinner*/

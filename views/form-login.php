@@ -18,9 +18,12 @@
 
         <section>
             <input class="button" type="submit" name="submit" id="submit" value="<?= __('Ingresar', 'dcms-send-pin') ?>">
-            <a class="button register" href="<?= $url_register ?>" name="register" id="register" >
-                <?= __('Solicita tu PIN', 'dcms-send-pin') ?>
-            </a>
+            <div class="link-container">
+                <span>¿No tienes acceso?</span>
+                <a class="link" href="<?= $url_register ?>" name="register" id="register" >
+                    <?= __('Solicita tu Identificativo y PIN', 'dcms-send-pin') ?>
+                </a>
+            </div>
         </section>
 
         <!--spinner-->

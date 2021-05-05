@@ -11,7 +11,7 @@
     <label for="number">Número de Socio<span>*</span></label>
     <input type="number" id="number" name="number" value="" maxlength="6" tabindex="1" required>
 
-    <label for="ref">NIF o Referencia<span>*</span></label>
+    <label for="ref">NIF o Referencia Abono<span>*</span></label>
     <input type="text" id="ref" name="ref" value="" maxlength="10" tabindex="2" required>
 
 
