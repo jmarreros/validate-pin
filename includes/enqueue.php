@@ -22,6 +22,8 @@ class Enqueue{
                             [],
                             DCMS_PIN_VERSION );
 
+        //Add dashicons
+    	wp_enqueue_style( 'dashicons' );
     }
 
 }

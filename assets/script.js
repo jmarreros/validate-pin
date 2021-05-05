@@ -46,6 +46,13 @@
         const sbutton   = '.container-pin #send.button';
         const smessage  = '.container-pin section.message';
 
+        // Validate same email
+        if ( ! has_same_email() ){
+            const res = {status:0, message:"Los correos tienen que ser iguales"}
+            show_message(res, smessage);
+            return;
+        };
+
 		$.ajax({
 			url : dcms_fpin.ajaxurl,
 			type: 'post',
@@ -82,6 +89,13 @@
         }
 
         $(smessage).show().html(res.message);
+    }
+
+    // Aux function to compare emails
+    function has_same_email(){
+        const email = $('#email').val();
+        const email2 = $('#email2').val();
+        return email === email2;
     }
 
 })(jQuery);
