@@ -73,10 +73,11 @@ class Database{
     }
 
     // Select the custom table, lastest rows
-    public function select_log_table( $qty, $order = 'DESC' ){
-        $str = $qty <> 0 ? 'LIMIT '.$qty : '';
+    public function select_log_table( $star, $end){
 
-        $sql = "SELECT * FROM {$this->table_name} ORDER BY id {$order} {$str}";
+        $sql = "SELECT * FROM {$this->table_name}
+                WHERE `date` BETWEEN '{$star} 00:00:00' AND '{$end} 23:59:00'
+                ORDER BY id DESC";
 
         return $this->wpdb->get_results($sql);
     }

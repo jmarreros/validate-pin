@@ -19,7 +19,7 @@ plugin_options_tabs($current_tab, $plugin_tabs);
 
 switch ($current_tab){
     case 'log':
-        tab_log();
+        include_once('settings-log.php');
         break;
     case 'settings':
         tab_settings();
@@ -70,13 +70,6 @@ function tab_settings() { ?>
         ?>
     </form>
 <?php } ?>
-
-<?php
-//log tab
-function tab_log(){
-    include_once('settings-log.php');
-}?>
-
 <?php
 // Create tabs and activate current tab
 function plugin_options_tabs($current_tab, $plugin_tabs) {

@@ -2,6 +2,8 @@
 
 namespace dcms\pin\includes;
 
+use dcms\pin\includes\Database;
+
 /**
  * Class for creating a dashboard submenu
  */
@@ -25,6 +27,13 @@ class Submenu{
 
     // Callback, show view
     public function submenu_page_callback(){
+        $db = new Database();
+
+        $val_start  = $_POST['date_start']??date('Y-m-d');
+        $val_end    = $_POST['date_end']??date('Y-m-d');
+
+        $rows = $db->select_log_table($val_start, $val_end);
+
         include_once (DCMS_PIN_PATH. '/views/settings-main.php');
     }
 }

@@ -17,6 +17,9 @@ class Export{
     public function process_export_data(){
         $db = new Database();
 
+        $date_start = $_POST['date_start'];
+        $date_end = $_POST['date_end'];
+
         $spreadsheet = new Spreadsheet();
         $writer = new Xlsx($spreadsheet);
 
@@ -33,7 +36,7 @@ class Export{
         $sheet->setCellValue('H1', 'Aceptar Terminos');
 
         // Get data from table
-        $data = $db->select_log_table(0, 'ASC');
+        $data = $db->select_log_table($date_start, $date_end);
 
         $i = 2;
         foreach ($data as $row) {
