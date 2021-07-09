@@ -27,13 +27,20 @@ class Submenu{
 
     // Callback, show view
     public function submenu_page_callback(){
-        $db = new Database();
 
+        wp_enqueue_style('admin-pin-style');
+        wp_enqueue_script('admin-pin-script');
+        wp_localize_script('admin-pin-script','dcms_admin_pin',[
+            'ajaxurl'=>admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('ajax-admin-pin')
+        ]);
+
+        $db = new Database();
         $val_start  = $_POST['date_start']??date('Y-m-d');
         $val_end    = $_POST['date_end']??date('Y-m-d');
 
         $rows = $db->select_log_table($val_start, $val_end);
 
-        include_once (DCMS_PIN_PATH. '/views/settings-main.php');
+        include_once (DCMS_PIN_PATH. 'backend/views/settings-main.php');
     }
 }

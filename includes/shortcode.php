@@ -19,13 +19,13 @@ class Shortcode{
 
     // Show form
     public function show_pin_form($atts , $content){
-	    wp_localize_script('forms-script',
+	    wp_localize_script('forms-pin-script',
                             'dcms_fpin',
                             [ 'ajaxurl'=>admin_url('admin-ajax.php'),
                               'nonce' => wp_create_nonce('ajax-nonce-pin')]);
-        wp_enqueue_script('forms-script');
+        wp_enqueue_script('forms-pin-script');
 
-        wp_enqueue_style('forms-style');
+        wp_enqueue_style('forms-pin-style');
 
         ob_start();
             include_once DCMS_PIN_PATH.'/views/form-pin.php';
@@ -46,14 +46,14 @@ class Shortcode{
             $url_redirect = $atts['redirect'];
             $url_register = $atts['register'];
 
-            wp_localize_script('forms-script',
+            wp_localize_script('forms-pin-script',
                     'dcms_flogin',
                     [   'ajaxurl'=>admin_url('admin-ajax.php'),
                         'nonce' => wp_create_nonce('ajax-nonce-login'),
                         'url' => $url_redirect
                     ]);
-            wp_enqueue_script('forms-script');
-            wp_enqueue_style('forms-style');
+            wp_enqueue_script('forms-pin-script');
+            wp_enqueue_style('forms-pin-style');
 
             ob_start();
                 include_once DCMS_PIN_PATH.'/views/form-login.php';

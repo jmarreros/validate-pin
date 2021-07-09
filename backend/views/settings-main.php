@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! current_user_can( 'manage_options' ) ) return; // only administrator
 
 $plugin_tabs = [];
-$plugin_tabs['log'] = "Log";
+$plugin_tabs['log'] = __("Reporte", 'dcms-send-pin');
 $plugin_tabs['settings'] = __("Settings", 'dcms-send-pin');
 
 // Get Current tab

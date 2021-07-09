@@ -1,66 +1,3 @@
-<?php
-
-?>
-<style>
-    table.dcms-table{
-        width:100%;
-        background-color:white;
-        border-spacing: 0;
-    }
-
-    table.dcms-table th,
-    table.dcms-table td{
-        text-align:left;
-        padding:6px;
-        border-bottom:1px solid #ccc;
-    }
-
-    table.dcms-table tr th:first-child,
-    table.dcms-table tr td:first-child{
-        width:40px;
-        background-color:#aaa;
-    }
-
-    table.dcms-table th,
-    table.dcms-table tr th:first-child{
-        background-color:#23282d;
-        color:white;
-    }
-
-    table.dcms-table tr td:nth-child(1),
-    table.dcms-table tr td:nth-child(2){
-        font-weight:bold;
-    }
-
-    section.msg-top{
-        margin-top:20px;
-        padding:10px;
-    }
-
-    section.msg-top .frm-export{
-        float:right;
-    }
-
-    section.msg-top:after{
-        content:'';
-        clear:both;
-        display:block;
-    }
-
-    .header-log-pin{
-        display:flex;
-        padding:20px;
-    }
-    .header-log-pin > section{
-        width:50%;
-    }
-
-    .buttons-export{
-        text-align:right;
-    }
-</style>
-
-
 <header class="header-log-pin">
     <section class="date-range">
         <form method="post" id="frm-search" class="frm-search" action="" >
@@ -102,7 +39,12 @@
         <td><?= $row->reference ?></td>
         <td><?= $row->nif ?></td>
         <td><?= $row->date ?></td>
-        <td><a href="#" class="resend">Reenviar</a></td>
+        <td><a href="#"
+            data-identify="<?= $row->identify ?>"
+            data-pin="<?= $row->pin ?>"
+            data-email="<?= $row->email ?>"
+            class="resend">Reenviar</a>
+        </td>
     </tr>
 <?php endforeach; ?>
 </table>

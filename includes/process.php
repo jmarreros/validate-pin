@@ -9,11 +9,35 @@ use dcms\pin\helpers\Helper;
 class Process{
 
     public function __construct(){
+        // Frontend
         add_action('wp_ajax_nopriv_dcms_ajax_validate_pin',[ $this, 'process_form_send_pin' ]);
         add_action('wp_ajax_dcms_ajax_validate_pin',[ $this, 'process_form_send_pin' ]);
 
         add_action('wp_ajax_nopriv_dcms_ajax_validate_login',[ $this, 'process_form_login' ]);
+
+        //Backend
+        add_action('wp_ajax_dcms_resend_pin',[ $this, 'resend_email_pin' ]);
     }
+
+    // Resend email backend
+    // =====================
+    public function resend_email_pin(){
+        $email = $_POST['email'];
+        $identify = $_POST['identify'];
+        $pin = $_POST['pin'];
+
+        $this->validate_nonce('ajax-admin-pin');
+
+        if ( $this->send_email_pin($email, $identify, $pin ) ){
+            $res = ['status' => 1];
+        } else {
+            $res = ['status' => 0];
+        }
+
+        echo json_encode($res);
+        wp_die();
+    }
+
 
     // Login Form
     // ==========
