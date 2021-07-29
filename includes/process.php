@@ -87,15 +87,15 @@ class Process{
         $this->validate_nonce('ajax-nonce-pin');
 
         // Get data
-        $number = intval($_POST['number']);
+        $identify = intval($_POST['identify']);
         $ref    = strtoupper(sanitize_text_field($_POST['ref'])); // NIF or Reference
         $email  = strtolower(sanitize_text_field($_POST['email']));
 
         // validate number <> 0
-        $this->validate_number($number);
+        $this->validate_number($identify);
 
         $data = new Database();
-        $user_meta = $data->get_data_user( $number );
+        $user_meta = $data->get_data_user( $identify );
 
         // number exists
         $this->validate_number($user_meta);
@@ -179,11 +179,11 @@ class Process{
     }
 
     // Validate the number
-    private function validate_number( $number ){
-        if ( $number == 0 || empty($number) ) {
+    private function validate_number( $identify ){
+        if ( $identify == 0 || empty($identify) ) {
             $res = [
                 'status' => 0,
-                'message' => '⛔ Error número de socio no válido'
+                'message' => '⛔ Error identificativo de socio no válido'
             ];
             echo json_encode($res);
             wp_die();
@@ -207,7 +207,7 @@ class Process{
         if ( empty ($ref) || ( $db_ref != $ref && $db_nif != $ref  )) {
             $res = [
                 'status' => 0,
-                'message' => '⛔ La Referencia o NIF no coincide con el número de socio'
+                'message' => '⛔ La Referencia o NIF no coincide con el identificativo del socio'
             ];
             echo json_encode($res);
             wp_die();

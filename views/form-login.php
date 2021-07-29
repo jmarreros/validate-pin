@@ -8,10 +8,10 @@
 
         <h3><?= __('Introduce tus datos para acceder', 'dcms-send-pin') ?></h3>
         <label for="username"><?= __('Identificativo', 'dcms-send-pin') ?> <span>*</span></label>
-        <input id="username" type="text" name="username" required>
+        <input id="username" type="text" name="username" maxlength="8" required>
 
         <label for="password"><?= __('PIN', 'dcms-send-pin') ?> <span>*</span></label>
-        <input id="password" type="password" name="password" required>
+        <input id="password" type="password" name="password" maxlength="8" required>
 
         <section class="message" style="display:none;">
         </section>

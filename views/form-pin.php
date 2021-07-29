@@ -8,8 +8,8 @@
 <p class="description"><?= $options['dcms_text_top_des_form'] ?></p>
 
 <form id="frm-pin" class="frm-pin">
-    <label for="number"><span class="dashicons dashicons-admin-users"></span> Número de Abonado<span>*</span></label>
-    <input type="number" id="number" name="number" value="" maxlength="6" tabindex="1" required>
+    <label for="identify"><span class="dashicons dashicons-admin-users"></span> Identificativo<span>*</span></label>
+    <input type="text" id="identify" name="identify" value="" maxlength="8" tabindex="1" required>
 
     <label for="ref"><span class="dashicons dashicons-media-default"></span> NIF o Referencia Abono<span>*</span></label>
     <input type="text" id="ref" name="ref" value="" maxlength="10" tabindex="2" required>

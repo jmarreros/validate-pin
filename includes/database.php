@@ -17,11 +17,11 @@ class Database{
     }
 
 
-    // Get data user based in number
-    public function get_data_user( $number ){
+    // Get data user based in identify
+    public function get_data_user( $identify ){
         $sql = "SELECT * FROM $this->user_meta WHERE
                 user_id in
-                (SELECT user_id FROM $this->user_meta  WHERE meta_key = 'number' AND meta_value = $number)
+                (SELECT user_id FROM $this->user_meta  WHERE meta_key = 'identify' AND meta_value = $identify)
                 AND meta_key in ('identify', 'number', 'reference', 'nif', 'pin', 'email')";
 
         return $this->wpdb->get_results($sql);

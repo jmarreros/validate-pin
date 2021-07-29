@@ -59,7 +59,7 @@
 			data: {
 				action : 'dcms_ajax_validate_pin',
                 nonce : dcms_fpin.nonce,
-                number: $('#number').val(),
+                number: $('#identify').val(),
                 ref   : $('#ref').val(),
                 email : $('#email').val()
 			},
