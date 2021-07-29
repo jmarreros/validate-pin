@@ -87,7 +87,7 @@ class Process{
         $this->validate_nonce('ajax-nonce-pin');
 
         // Get data
-        $identify = intval($_POST['identify']);
+        $identify = $_POST['identify'];
         $ref    = strtoupper(sanitize_text_field($_POST['ref'])); // NIF or Reference
         $email  = strtolower(sanitize_text_field($_POST['email']));
 
