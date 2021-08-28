@@ -50,7 +50,7 @@ class Process{
         // First
         $info = array();
         $info['user_login'] = $_POST['username'];
-        $info['user_password'] = $_POST['password'];
+        $info['user_password'] = str_pad($_POST['password'], 4, "0", STR_PAD_LEFT);
         $info['remember'] = false;
 
         $user_signon = wp_signon( $info, false );
@@ -133,7 +133,7 @@ class Process{
         // If all is ok
         $res = [
             'status' => 1,
-            'message' => "✅ Hemos enviado un correo a <i>$email</i> con tu número de PIN",
+            'message' => "✅ Solicitud correcta, en unas horas recibirás en tu email <i>$email</i> tu número de PIN. <br><br>Si no lo recibes, no olvides revisar la bandeja de no deseados, Spam, y Promociones",
         ];
 
         echo json_encode($res);

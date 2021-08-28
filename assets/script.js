@@ -72,10 +72,10 @@
         .done( function(res) {
             res = JSON.parse(res);
             show_message(res, smessage);
+            $(sbutton).hide();
         })
         .always( function() {
             $(sspin).hide();
-            $(sbutton).val('Enviar').prop('disabled', false);;
         });
 
 	});
