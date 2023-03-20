@@ -37,6 +37,7 @@ class Shortcode{
 
     // Show login form
     public function show_login_form($atts , $content){
+	    global $wp;
 
         if ( ! is_user_logged_in() ){
 
@@ -45,6 +46,13 @@ class Shortcode{
 
             $url_redirect = $atts['redirect'];
             $url_register = $atts['register'];
+
+			error_log(print_r('La url redirect',true));
+			error_log(print_r($url_redirect,true));
+
+			if ( $url_redirect === 'current') {
+				$url_redirect = add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
+			}
 
             wp_localize_script('forms-pin-script',
                     'dcms_flogin',
