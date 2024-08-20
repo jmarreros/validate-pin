@@ -38,7 +38,6 @@ class Process {
 
 	// Login Form
 	public function process_form_login(): void {
-
 		// Validate nonce
 		$this->validate_nonce( 'ajax-nonce-login' );
 

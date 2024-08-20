@@ -29,7 +29,6 @@ class Settings {
 			[ 'label_for' => 'dcms_check_validate_email' ]
 		);
 
-
 		// Section for form
 		add_settings_section( 'dcms_form_pin_section',
 			__( 'Form Text', 'dcms-send-pin' ),
@@ -48,7 +47,6 @@ class Settings {
 			]
 		);
 
-
 		add_settings_field( 'dcms_text_top_des_form',
 			__( 'Form Description', 'dcms-send-pin' ),
 			[ $this, 'dcms_section_input_cb' ],
@@ -59,7 +57,6 @@ class Settings {
 				'required'  => false
 			]
 		);
-
 
 		add_settings_section( 'dcms_email_section',
 			__( 'Default Text email', 'dcms-send-pin' ),
