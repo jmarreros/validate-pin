@@ -3,7 +3,7 @@
 Plugin Name: Sporting Send Pin
 Plugin URI: https://webservi.es
 Description: Send a pin number to the user
-Version: 1.0
+Version: 1.2.2
 Author: Webservi.es
 Author URI: https://decodecms.com
 Text Domain: dcms-send-pin
