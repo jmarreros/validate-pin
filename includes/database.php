@@ -73,7 +73,7 @@ class Database{
     }
 
     // Select the custom table, lastest rows
-    public function select_log_table( $star, $end){
+    public function report_pin_sent( $star, $end){
 
         $sql = "SELECT * FROM {$this->table_name}
                 WHERE `date` BETWEEN '{$star} 00:00:00' AND '{$end} 23:59:00'

@@ -10,7 +10,7 @@ final class Helper{
     }
 
     // object meta to array meta
-    public static function meta_to_array($user_meta){
+    public static function meta_to_array($user_meta):array{
         $arr = [];
 
         $arr['user_id'] = $user_meta[0]->user_id;
