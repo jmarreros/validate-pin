@@ -19,21 +19,22 @@
 			},
             beforeSend: function(){
                 $(sspin).show();
-                $(sbutton).val('Validando ...').prop('disabled', true);;
+                $(sbutton).val('Validando ...').prop('disabled', true);
                 $(smessage).hide();
             }
         })
         .done( function(res) {
-            res = JSON.parse(res);
+
+            // res = JSON.parse(res);
             show_message(res, smessage);
 
-            if (res.status == 1){
+            if (res.status === 1){
                 window.location.href = dcms_flogin.url;
             }
         })
         .always( function() {
             $(sspin).hide();
-            $(sbutton).val('Ingresar').prop('disabled', false);;
+            $(sbutton).val('Ingresar').prop('disabled', false);
         });
 
     })
@@ -51,7 +52,7 @@
             const res = {status:0, message:"Los correos tienen que ser iguales"}
             show_message(res, smessage);
             return;
-        };
+        }
 
 		$.ajax({
 			url : dcms_fpin.ajaxurl,
@@ -65,12 +66,11 @@
 			},
             beforeSend: function(){
                 $(sspin).show();
-                $(sbutton).val('Enviando ...').prop('disabled', true);;
+                $(sbutton).val('Enviando ...').prop('disabled', true);
                 $(smessage).hide();
             }
         })
         .done( function(res) {
-            res = JSON.parse(res);
             show_message(res, smessage);
             $(sbutton).hide();
         })
@@ -82,7 +82,7 @@
 
     // Aux function to show message
     function show_message(res, smessage){
-        if (res.status == 0 ) {
+        if (res.status === 0 ) {
             $(smessage).addClass('error');
         } else {
             $(smessage).removeClass('error');

@@ -2,8 +2,6 @@
 
 namespace dcms\pin\includes;
 
-use dcms\pin\includes\Database;
-
 // Class for the operations of plugin
 class Plugin{
 
@@ -15,14 +13,14 @@ class Plugin{
         // Hide admin bar
         add_action('after_setup_theme', [ $this, 'dcms_hide_admin_bar' ]);
 
-        // Activation/Desactivation
+        // Activation/Deactivation
         register_activation_hook( DCMS_PIN_BASE_NAME, [ $this, 'dcms_activation_plugin'] );
-        register_deactivation_hook( DCMS_PIN_BASE_NAME, [ $this, 'dcms_deactivation_plugin'] );
+//        register_deactivation_hook( DCMS_PIN_BASE_NAME, [ $this, 'dcms_deactivation_plugin'] );
     }
 
 
     // Hide Admin bar for suscribers
-    public function dcms_hide_admin_bar() {
+    public function dcms_hide_admin_bar() :void{
         if ( current_user_can('subscriber') ) {
             add_filter( 'show_admin_bar', '__return_false' );
         }
@@ -41,7 +39,7 @@ class Plugin{
     }
 
     // Activate plugin - create options and database table
-    public function dcms_activation_plugin(){
+    public function dcms_activation_plugin():void{
         // Default Options
         $options = get_option( 'dcms_pin_options' );
 
@@ -68,7 +66,7 @@ class Plugin{
     }
 
     // Deactivate plugin
-    public function dcms_deactivation_plugin(){
-    }
+//    public function dcms_deactivation_plugin(){
+//    }
 
 }

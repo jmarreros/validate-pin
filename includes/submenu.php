@@ -2,8 +2,6 @@
 
 namespace dcms\pin\includes;
 
-use dcms\pin\includes\Database;
-
 /**
  * Class for creating a dashboard submenu
  */
@@ -26,7 +24,7 @@ class Submenu {
 	}
 
 	// Callback, show view
-	public function submenu_page_callback() :void{
+	public function submenu_page_callback(): void {
 
 		wp_enqueue_style( 'admin-pin-style' );
 		wp_enqueue_script( 'admin-pin-script' );
@@ -35,11 +33,13 @@ class Submenu {
 			'nonce'   => wp_create_nonce( 'ajax-admin-pin' )
 		] );
 
-		$db        = new Database();
-		$val_start = $_POST['date_start'] ?? date( 'Y-m-d' );
-		$val_end   = $_POST['date_end'] ?? date( 'Y-m-d' );
+		if ( isset( $_POST['date_start'] ) && isset( $_POST['date_end'] ) ) {
+			$db        = new Database();
+			$val_start = $_POST['date_start'];
+			$val_end   = $_POST['date_end'];
 
-		$rows = $db->report_pin_sent( $val_start, $val_end );
+			$rows = $db->report_pin_sent( $val_start, $val_end );
+		}
 
 		include_once( DCMS_PIN_PATH . 'backend/views/settings-main.php' );
 	}

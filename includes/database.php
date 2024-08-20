@@ -3,9 +3,9 @@
 namespace dcms\pin\includes;
 
 class Database{
-    private $wpdb;
-    private $table_name;
-    private $user_meta;
+    private \wpdb $wpdb;
+    private string $table_name;
+    private string $user_meta;
 
     public function __construct(){
         global $wpdb;

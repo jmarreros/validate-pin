@@ -2,7 +2,6 @@
 
 namespace dcms\pin\includes;
 
-use dcms\pin\includes\Database;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -10,11 +9,11 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Export {
 
 	public function __construct() {
-		add_action( 'admin_post_process_export_pin_sent', [ $this, 'process_export_data' ] );
+		add_action( 'admin_post_process_export_pin_sent', [ $this, 'export_data_pint_sent' ] );
 	}
 
 	// Export data
-	public function process_export_data() {
+	public function export_data_pint_sent():void {
 		$db = new Database();
 
 		$date_start = $_POST['date_start'];
