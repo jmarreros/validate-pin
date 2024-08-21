@@ -29,6 +29,28 @@ class Settings {
 			[ 'label_for' => 'dcms_check_validate_email' ]
 		);
 
+		add_settings_field( 'dcms_slug_page_validation_email',
+			__( 'Slug Page Validation Email', 'dcms-send-pin' ),
+			[ $this, 'dcms_section_input_cb' ],
+			'dcms_pin_sfields',
+			'dcms_validate_email_section',
+			[
+				'label_for' => 'dcms_slug_page_validation_email',
+				'required'  => true
+			]
+		);
+
+		add_settings_field( 'dcms_text_email_validation',
+			__( 'Email Text', 'dcms-send-pin' ),
+			[ $this, 'dcms_section_textarea_field' ],
+			'dcms_pin_sfields',
+			'dcms_validate_email_section',
+			[
+				'label_for'   => 'dcms_text_email_validation',
+				'description' => __( 'You can use <strong>%id%</strong> and <strong>%pin%</strong> to include the Identify and the PIN number between the text', 'dcms-send-pin' )
+			]
+		);
+
 		// Section for form
 		add_settings_section( 'dcms_form_pin_section',
 			__( 'Form Text', 'dcms-send-pin' ),

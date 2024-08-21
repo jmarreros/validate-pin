@@ -74,6 +74,7 @@
   color: gray;
 }
 
+.frm-validate .message,
 .frm-login .message,
 .frm-pin .message {
   background-color: #ceeed8;
@@ -86,6 +87,7 @@
   margin-bottom: 10px;
 }
 
+.frm-validate .message.error,
 .frm-login .message.error,
 .frm-pin .message.error {
   background-color: #fed5da;

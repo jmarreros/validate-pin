@@ -84,11 +84,12 @@ class Shortcode {
 		wp_localize_script( 'forms-pin-script',
 			'dcms_fvalidation',
 			[
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'ajax-nonce-validation-email' )
+				'ajaxurl'      => admin_url( 'admin-ajax.php' ),
+				'nonce'        => wp_create_nonce( 'ajax-nonce-validation-email' ),
+				'url_redirect' => home_url(),
 			] );
-		wp_enqueue_script( 'forms-pin-script' );
 
+		wp_enqueue_script( 'forms-pin-script' );
 		wp_enqueue_style( 'forms-pin-style' );
 
 		// Get current user to show/hide controls
@@ -101,7 +102,7 @@ class Shortcode {
 
 
 		// Create registry in log table
-		$db = new Database();
+		$db        = new Database();
 		$unique_id = $db->generate_unique_id_validation_email( $id_user );
 
 

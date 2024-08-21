@@ -14,8 +14,9 @@ class Process {
 
 		add_action( 'wp_ajax_nopriv_dcms_ajax_validate_login', [ $this, 'process_form_login' ] );
 
-		add_action( 'admin_post_nopriv_validate_email', [ $this, 'process_validate_email' ] );
-		add_action( 'admin_post_validate_email', [ $this, 'process_validate_email' ] );
+		add_action( 'wp_ajax_nopriv_dcms_ajax_validate_email', [ $this, 'process_form_validate_email' ] );
+		add_action( 'wp_ajax_dcms_ajax_validate_email', [ $this, 'process_form_validate_email' ] );
+		add_action( 'template_redirect', [ $this, 'process_url_validate_email' ] );
 
 		//Backend
 		add_action( 'wp_ajax_dcms_resend_pin', [ $this, 'resend_email_pin' ] );
@@ -134,8 +135,42 @@ class Process {
 
 
 	// Validate Email Form
-	public function process_validate_email(){
+	public function process_form_validate_email(): void {
+		$unique_id = $_POST['unique_id'] ?? '';
+		$email     = $_POST['email'] ?? '';
 
+
+		if ( empty( $unique_id ) || empty( $email ) ) {
+			$res = [
+				'status'  => 0,
+				'message' => '⛔ Error identificativo o correo de socio no válido'
+			];
+			wp_send_json( $res );
+		}
+
+		//logout
+		wp_logout();
+
+		$res = [
+			'status'  => 1,
+			'message' => '✅ En unos minutos recibirás un correo para confirmar tu cuenta.'
+		];
+
+		wp_send_json( $res );
+	}
+
+	// Process URL sent by email
+	public function process_url_validate_email(): void {
+		$options = get_option( 'dcms_pin_options' );
+		$slug    = $options['dcms_slug_page_validation_email'];
+
+		if ( is_page( $slug ) ) {
+			$unique_id = $_GET['unique_id'] ?? '';
+			if ( $unique_id ) {
+				error_log(print_r('Unique:',true));
+				error_log( print_r( $unique_id, true ) );
+			}
+		}
 	}
 
 	// Send email with identify and pin
