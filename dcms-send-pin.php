@@ -45,6 +45,7 @@ final class Loader {
 
 		define( 'DCMS_SHORTCODE_FORM_PIN', 'sporting-form-pin' );
 		define( 'DCMS_SHORTCODE_FORM_LOGIN', 'sporting-form-login' );
+		define( 'DCMS_SHORTCODE_FORM_VALIDATION_EMAIL', 'sporting-form-validation-email' );
 	}
 
 	// Load tex domain

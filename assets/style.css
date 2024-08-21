@@ -25,6 +25,7 @@
   margin-left: 10px;
 }
 
+.frm-validate .button,
 .frm-login .button,
 .frm-pin .button {
   cursor: pointer;

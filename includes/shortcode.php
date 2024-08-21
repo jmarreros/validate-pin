@@ -15,6 +15,7 @@ class Shortcode {
 	public function create_forms_shortcode(): void {
 		add_shortcode( DCMS_SHORTCODE_FORM_PIN, [ $this, 'show_pin_form' ] );
 		add_shortcode( DCMS_SHORTCODE_FORM_LOGIN, [ $this, 'show_login_form' ] );
+		add_shortcode( DCMS_SHORTCODE_FORM_VALIDATION_EMAIL, [ $this, 'show_validation_email_form' ] );
 	}
 
 	// Show form
@@ -75,5 +76,40 @@ class Shortcode {
 
 		return $html_code;
 
+	}
+
+
+	public function show_validation_email_form(): string {
+
+		wp_localize_script( 'forms-pin-script',
+			'dcms_fvalidation',
+			[
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'ajax-nonce-validation-email' )
+			] );
+		wp_enqueue_script( 'forms-pin-script' );
+
+		wp_enqueue_style( 'forms-pin-style' );
+
+		// Get current user to show/hide controls
+		$id_user = get_current_user_id();
+
+		// Logout user
+		if ( ! $id_user ) {
+			return "<h4>Tienes que estar conectado para acceder a esta página</h4>";
+		}
+
+
+		// Create registry in log table
+		$db = new Database();
+		$unique_id = $db->generate_unique_id_validation_email( $id_user );
+
+
+		ob_start();
+		include_once DCMS_PIN_PATH . '/views/form-validate.php';
+		$html_code = ob_get_contents();
+		ob_end_clean();
+
+		return $html_code;
 	}
 }

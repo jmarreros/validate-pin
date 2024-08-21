@@ -37,8 +37,10 @@ class Database {
 		$sql .= " CREATE TABLE IF NOT EXISTS {$this->table_log_validation_email} (
 					`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 					`id_user` int(10) unsigned NOT NULL,
-					`email` varchar(100) NOT NULL,
-					`validate` tinyint(1) DEFAULT 0,
+					`email` varchar(100) NULL,
+					`validated` tinyint(1) DEFAULT 0,
+					`mail_sent` tinyint(1) DEFAULT 0,
+					`unique_id` varchar(150) NOT NULL,
 					`date` datetime DEFAULT CURRENT_TIMESTAMP,
 					PRIMARY KEY (`id`)
 		  );";
@@ -114,6 +116,29 @@ class Database {
                 ORDER BY id DESC";
 
 		return $this->wpdb->get_results( $sql );
+	}
+
+	// Insert log validation email
+	public function generate_unique_id_validation_email( $user_id ): string {
+		$unique_id = $this->get_unique_id_validation_email( $user_id );
+
+		if ( ! $unique_id ) {
+			$row              = [];
+			$row['id_user']   = $user_id;
+			$row['unique_id'] = uniqid();
+
+			$this->wpdb->insert( $this->table_log_validation_email, $row );
+		} else {
+			return $unique_id;
+		}
+
+		return $this->get_unique_id_validation_email( $user_id );
+	}
+
+	public function get_unique_id_validation_email( $user_id ): ?string {
+		$sql = "SELECT unique_id FROM $this->table_log_validation_email WHERE id_user = $user_id";
+
+		return $this->wpdb->get_var( $sql );
 	}
 
 }
