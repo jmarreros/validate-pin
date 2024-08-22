@@ -35,14 +35,13 @@ class Database {
           );";
 
 		$sql .= " CREATE TABLE IF NOT EXISTS {$this->table_log_validation_email} (
-					`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 					`id_user` int(10) unsigned NOT NULL,
 					`email` varchar(100) NULL,
 					`validated` tinyint(1) DEFAULT 0,
 					`mail_sent` tinyint(1) DEFAULT 0,
 					`unique_id` varchar(150) NOT NULL,
 					`date` datetime DEFAULT CURRENT_TIMESTAMP,
-					PRIMARY KEY (`id`)
+					PRIMARY KEY (`id_user`)
 		  );";
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -118,27 +117,24 @@ class Database {
 		return $this->wpdb->get_results( $sql );
 	}
 
-	// Insert log validation email
-	public function generate_unique_id_validation_email( $user_id ): string {
-		$unique_id = $this->get_unique_id_validation_email( $user_id );
+	// Insert or update log validation email
+	public function generate_unique_id_validation_email( $user_id, $email ): string {
+		$data              = [];
+		$data['id_user']   = $user_id;
+		$data['email']     = $email;
+		$data['mail_sent'] = 1;
+		$data['unique_id'] = uniqid();
 
-		if ( ! $unique_id ) {
-			$row              = [];
-			$row['id_user']   = $user_id;
-			$row['unique_id'] = uniqid();
+		$this->wpdb->replace( $this->table_log_validation_email, $data );
 
-			$this->wpdb->insert( $this->table_log_validation_email, $row );
-		} else {
-			return $unique_id;
-		}
-
-		return $this->get_unique_id_validation_email( $user_id );
+		return $data['unique_id'];
 	}
 
-	public function get_unique_id_validation_email( $user_id ): ?string {
-		$sql = "SELECT unique_id FROM $this->table_log_validation_email WHERE id_user = $user_id";
+	// Get user id from unique id
+	public function get_user_id_by_unique_id( $unique_id ): int {
+		$sql = "SELECT id_user FROM $this->table_log_validation_email WHERE unique_id = '$unique_id'";
 
-		return $this->wpdb->get_var( $sql );
+		return $this->wpdb->get_var( $sql ) ?? 0;
 	}
 
 }

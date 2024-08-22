@@ -30,7 +30,7 @@ class Process {
 
 		$this->validate_nonce( 'ajax-admin-pin' );
 
-		if ( $this->send_email_pin( $email, $identify, $pin ) ) {
+		if ( $this->send_email_pin_form( $email, $identify, $pin ) ) {
 			$res = [ 'status' => 1 ];
 		} else {
 			$res = [ 'status' => 0 ];
@@ -83,7 +83,7 @@ class Process {
 		// Get data
 		$identify = $_POST['identify'];
 		$ref      = strtoupper( sanitize_text_field( $_POST['ref'] ) ); // NIF or Reference
-		$email    = strtolower( sanitize_text_field( $_POST['email'] ) );
+		$email    = strtolower( sanitize_email( $_POST['email'] ) );
 
 		// validate number <> 0
 		$this->validate_number( $identify );
@@ -118,7 +118,7 @@ class Process {
 		}
 
 		// Send email
-		$res = $this->send_email_pin( $email, $db_identify, $db_pin );
+		$res = $this->send_email_pin_form( $email, $db_identify, $db_pin );
 		$this->validate_send_email( $res );
 
 		// Save log
@@ -136,24 +136,34 @@ class Process {
 
 	// Validate Email Form
 	public function process_form_validate_email(): void {
-		$unique_id = $_POST['unique_id'] ?? '';
-		$email     = $_POST['email'] ?? '';
+		$options = get_option( 'dcms_pin_options' );
+		$slug    = $options['dcms_slug_page_validation_email'];
 
+		$email = strtolower( sanitize_email( $_POST['email'] ?? '' ) );
 
-		if ( empty( $unique_id ) || empty( $email ) ) {
-			$res = [
-				'status'  => 0,
-				'message' => '⛔ Error identificativo o correo de socio no válido'
-			];
-			wp_send_json( $res );
-		}
+		$db = new Database();
+
+		$user_id = get_current_user_id();
+
+		// Validate duplicate email
+		$duplicate = $db->get_duplicate_email( $email, $user_id );
+		$this->validate_duplicate_email( $duplicate );
+
+		// Save in database unique_id
+		$unique_id = $db->generate_unique_id_validation_email( $user_id, $email );
+
+		// Send email to user with the url to validate
+		$url_validate = home_url( $slug ) . '/?unique_id=' . $unique_id;
+		$url_validate = "<a href='$url_validate'>$url_validate</a>";
+		$res          = $this->send_email_validate_email_form( $email, $url_validate );
+		$this->validate_send_email( $res );
 
 		//logout
 		wp_logout();
 
 		$res = [
 			'status'  => 1,
-			'message' => '✅ En unos minutos recibirás un correo para confirmar tu cuenta.'
+			'message' => '✅ En unos minutos recibirás un correo para confirmar tu cuenta. <a href="' . home_url() . '">Regresar</a>'
 		];
 
 		wp_send_json( $res );
@@ -167,14 +177,13 @@ class Process {
 		if ( is_page( $slug ) ) {
 			$unique_id = $_GET['unique_id'] ?? '';
 			if ( $unique_id ) {
-				error_log(print_r('Unique:',true));
-				error_log( print_r( $unique_id, true ) );
+
 			}
 		}
 	}
 
 	// Send email with identify and pin
-	private function send_email_pin( $email, $identify, $pin ) {
+	private function send_email_pin_form( $email, $identify, $pin ) {
 		$options = get_option( 'dcms_pin_options' );
 
 		$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
@@ -182,6 +191,18 @@ class Process {
 		$body    = $options['dcms_text_email'];
 		$body    = str_replace( '%id%', $identify, $body );
 		$body    = str_replace( '%pin%', $pin, $body );
+
+		return wp_mail( $email, $subject, $body, $headers );
+	}
+
+	// Send email with identify and pin
+	private function send_email_validate_email_form( $email, $url_validate ) {
+		$options = get_option( 'dcms_pin_options' );
+
+		$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
+		$subject = $options['dcms_subject_email_validation'];
+		$body    = $options['dcms_text_email_validation'];
+		$body    = str_replace( '%url%', $url_validate, $body );
 
 		return wp_mail( $email, $subject, $body, $headers );
 	}

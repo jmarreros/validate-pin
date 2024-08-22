@@ -92,19 +92,10 @@ class Shortcode {
 		wp_enqueue_script( 'forms-pin-script' );
 		wp_enqueue_style( 'forms-pin-style' );
 
-		// Get current user to show/hide controls
-		$id_user = get_current_user_id();
-
 		// Logout user
-		if ( ! $id_user ) {
+		if ( ! is_user_logged_in() ) {
 			return "<h4>Tienes que estar conectado para acceder a esta página</h4>";
 		}
-
-
-		// Create registry in log table
-		$db        = new Database();
-		$unique_id = $db->generate_unique_id_validation_email( $id_user );
-
 
 		ob_start();
 		include_once DCMS_PIN_PATH . '/views/form-validate.php';

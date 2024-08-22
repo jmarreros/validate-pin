@@ -40,6 +40,18 @@ class Settings {
 			]
 		);
 
+		add_settings_field( 'dcms_subject_email_validation',
+			__( 'Subject email', 'dcms-send-pin' ),
+			[ $this, 'dcms_section_input_cb' ],
+			'dcms_pin_sfields',
+			'dcms_validate_email_section',
+			[
+				'label_for' => 'dcms_subject_email_validation',
+				'required'  => true
+			]
+		);
+
+
 		add_settings_field( 'dcms_text_email_validation',
 			__( 'Email Text', 'dcms-send-pin' ),
 			[ $this, 'dcms_section_textarea_field' ],
@@ -47,7 +59,7 @@ class Settings {
 			'dcms_validate_email_section',
 			[
 				'label_for'   => 'dcms_text_email_validation',
-				'description' => __( 'You can use <strong>%id%</strong> and <strong>%pin%</strong> to include the Identify and the PIN number between the text', 'dcms-send-pin' )
+				'description' => __( 'You must use <strong>%url%</strong> to include the url that user will use to validate', 'dcms-send-pin' )
 			]
 		);
 
@@ -171,7 +183,7 @@ class Settings {
 	}
 
 	// Callback textarea field callback
-	public function dcms_section_textarea_field( $args ) :void {
+	public function dcms_section_textarea_field( $args ): void {
 		$id      = $args['label_for'];
 		$desc    = $args['description'] ?? '';
 		$options = get_option( 'dcms_pin_options' );

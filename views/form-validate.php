@@ -15,9 +15,14 @@
         </section>
 
         <!--spinner-->
-        <div class="lds-ring" style="display:none;"><div></div><div></div><div></div><div></div></div>
+        <div class="lds-ring" style="display:none;">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
 
     </form>
 
 </section>
-
+<br>

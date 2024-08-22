@@ -86,7 +86,7 @@
         e.preventDefault();
 
         const sspin = '.container-validate .lds-ring';
-        const sbutton = '.container-validate #submit.button';
+        const sbutton = '.container-validate .button';
         const smessage = '.container-validate section.message';
 
         $.ajax({
@@ -108,7 +108,7 @@
                 show_message(res, smessage);
                 if (res.status === 1) {
                     $(sbutton).hide();
-                    window.location.href = dcms_fvalidation.url_redirect;
+                    $('#email').prop('disabled', true);
                 }
             })
             .always(function () {
