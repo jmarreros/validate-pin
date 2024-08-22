@@ -106,6 +106,7 @@
         })
             .done(function (res) {
                 show_message(res, smessage);
+                $(sbutton).val('Validar correo').prop('disabled', false);
                 if (res.status === 1) {
                     $(sbutton).hide();
                     $('#email').prop('disabled', true);

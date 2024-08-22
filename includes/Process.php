@@ -136,8 +136,6 @@ class Process {
 
 	// Validate Email Form
 	public function process_form_validate_email(): void {
-		$options = get_option( 'dcms_pin_options' );
-		$slug    = $options['dcms_slug_page_validation_email'];
 
 		$email = strtolower( sanitize_email( $_POST['email'] ?? '' ) );
 
@@ -153,9 +151,7 @@ class Process {
 		$unique_id = $db->generate_unique_id_validation_email( $user_id, $email );
 
 		// Send email to user with the url to validate
-		$url_validate = home_url( $slug ) . '/?unique_id=' . $unique_id;
-		$url_validate = "<a href='$url_validate'>$url_validate</a>";
-		$res          = $this->send_email_validate_email_form( $email, $url_validate );
+		$res = $this->send_email_validate_email_form( $email, $unique_id );
 		$this->validate_send_email( $res );
 
 		//logout
@@ -174,12 +170,29 @@ class Process {
 		$options = get_option( 'dcms_pin_options' );
 		$slug    = $options['dcms_slug_page_validation_email'];
 
-		if ( is_page( $slug ) ) {
-			$unique_id = $_GET['unique_id'] ?? '';
-			if ( $unique_id ) {
-
-			}
+		if ( ! is_page( $slug ) ) {
+			return;
 		}
+
+		$unique_id = $_GET['unique_id'] ?? '';
+		if ( ! $unique_id ) {
+			return;
+		}
+
+		$db        = new Database();
+		$user_data = $db->get_user_data_by_unique_id( $unique_id );
+
+		// Update email if is different
+		if ( $user_data['email'] !== $user_data['current_email'] ) {
+			$res = $db->update_email_user( $user_data['email'], $user_data['id_user'] );
+			$this->validate_update_email( $res );
+		}
+
+		// Update log table
+		$db->update_log_validation_email( $user_data['id_user'] );
+
+		// Redirect to home
+		wp_redirect( home_url() );
 	}
 
 	// Send email with identify and pin
@@ -196,8 +209,12 @@ class Process {
 	}
 
 	// Send email with identify and pin
-	private function send_email_validate_email_form( $email, $url_validate ) {
+	private function send_email_validate_email_form( $email, $unique_id ) {
 		$options = get_option( 'dcms_pin_options' );
+		$slug    = $options['dcms_slug_page_validation_email'];
+
+		$url_validate = home_url( $slug ) . '/?unique_id=' . $unique_id;
+		$url_validate = "<a href='$url_validate'>$url_validate</a>";
 
 		$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
 		$subject = $options['dcms_subject_email_validation'];

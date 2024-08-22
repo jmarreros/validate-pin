@@ -6,16 +6,18 @@ class Database {
 	private \wpdb $wpdb;
 	private string $table_log_pin_sent;
 	private string $table_log_validation_email;
-	private string $user_meta;
+	private string $table_user_meta;
+	private string $table_user;
 
 	public function __construct() {
 		global $wpdb;
 
-		$this->wpdb      = $wpdb;
-		$this->user_meta = $this->wpdb->prefix . 'usermeta';
+		$this->wpdb = $wpdb;
 
 		$this->table_log_pin_sent         = $this->wpdb->prefix . 'dcms_pin_sent';
 		$this->table_log_validation_email = $this->wpdb->prefix . 'dcms_validation_email';
+		$this->table_user_meta            = $this->wpdb->prefix . 'usermeta';
+		$this->table_user                 = $this->wpdb->prefix . 'users';
 	}
 
 	// Init activation create table
@@ -50,25 +52,24 @@ class Database {
 
 	// Get data user based in identify
 	public function get_data_user( $identify ) {
-		$sql = "SELECT * FROM $this->user_meta WHERE
+		$sql = "SELECT * FROM $this->table_user_meta WHERE
                 user_id in
-                (SELECT user_id FROM $this->user_meta  WHERE meta_key = 'identify' AND meta_value = $identify)
+                (SELECT user_id FROM $this->table_user_meta  WHERE meta_key = 'identify' AND meta_value = $identify)
                 AND meta_key in ('identify', 'number', 'reference', 'nif', 'pin', 'email')";
 
 		return $this->wpdb->get_results( $sql );
 	}
 
 	// Get duplicate email validation
-	public function get_duplicate_email( $email, $not_id ) {
-		$sql = "SELECT user_id FROM $this->user_meta
+	public function get_duplicate_email( $email, $not_id ): int {
+		$sql = "SELECT user_id FROM $this->table_user_meta
                 WHERE meta_key = 'email' AND meta_value = '$email' AND user_id <> $not_id";
 
-		return $this->wpdb->get_var( $sql );
+		return $this->wpdb->get_var( $sql ) ?? 0;
 	}
 
 	// Update email user
 	public function update_email_user( $email, $user_id ) {
-
 		add_filter( 'send_email_change_email', '__return_false' );
 		$res = wp_update_user( [ 'ID' => $user_id, 'user_email' => $email ] );
 		add_filter( 'send_email_change_email', '__return_true' );
@@ -131,10 +132,20 @@ class Database {
 	}
 
 	// Get user id from unique id
-	public function get_user_id_by_unique_id( $unique_id ): int {
-		$sql = "SELECT id_user FROM $this->table_log_validation_email WHERE unique_id = '$unique_id'";
+	public function get_user_data_by_unique_id( $unique_id ): array {
+		$sql = "SELECT v.id_user, v.email, u.user_email current_email 
+				FROM $this->table_log_validation_email v
+				INNER JOIN $this->table_user u ON u.ID = v.id_user
+				WHERE unique_id = '$unique_id'";
 
-		return $this->wpdb->get_var( $sql ) ?? 0;
+		return $this->wpdb->get_row( $sql, ARRAY_A ) ?? [];
 	}
 
+	// Update log table validation email
+	public function update_log_validation_email( $user_id ): void {
+		$data  = [ 'validated' => 1 ];
+		$where = [ 'id_user' => $user_id ];
+
+		$this->wpdb->update( $this->table_log_validation_email, $data, $where );
+	}
 }
