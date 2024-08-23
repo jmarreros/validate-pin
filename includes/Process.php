@@ -69,11 +69,13 @@ class Process {
 			$options = get_option( 'dcms_pin_options' );
 
 			if ( $options['dcms_check_validate_email'] ) {
-
-				$url_validate        = home_url( $options['dcms_slug_page_validation_email'] );
-				$res['url_validate'] = $url_validate;
+				$db                       = new Database();
+				$require_validation_email = $db->user_require_validation_email( $user_signon->ID );
+				if ( $require_validation_email ) {
+					$url_validate        = home_url( $options['dcms_slug_page_validation_email'] );
+					$res['url_validate'] = $url_validate;
+				}
 			}
-
 
 		} else {
 			$res = [

@@ -162,4 +162,22 @@ class Database {
 
 		return $this->wpdb->get_row( $sql, ARRAY_A ) ?? [];
 	}
+
+	public function user_require_validation_email($user_id):bool{
+		$sql = "SELECT * FROM $this->table_log_validation_email WHERE id_user = $user_id";
+		$data = $this->wpdb->get_row( $sql, ARRAY_A ) ?? [];
+		return !empty($data) && $data['validated'] == 0;
+	}
 }
+
+// Consulta a ejecutar para regularizar los registros que han sido validados por email
+
+//INSERT INTO wp_dcms_validation_email (id_user, email, validated, mail_sent, unique_id, date)
+//SELECT t1.id_user, t1.email,1,1,'', t1.date
+//FROM wp_dcms_pin_sent t1
+//INNER JOIN (
+//	SELECT id_user, MAX(date) AS max_date
+//    FROM wp_dcms_pin_sent
+//    GROUP BY id_user
+//) t2 ON t1.id_user = t2.id_user AND t1.date = t2.max_date
+//WHERE t1.date >= '2024-01-01';
