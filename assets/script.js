@@ -24,8 +24,6 @@
             }
         })
             .done(function (res) {
-
-                // res = JSON.parse(res);
                 show_message(res, smessage);
 
                 if (res.status === 1) {
@@ -72,7 +70,11 @@
         })
             .done(function (res) {
                 show_message(res, smessage);
-                $(sbutton).hide();
+                if (res.status === 0) {
+                    $(sbutton).val('Enviar').prop('disabled', false);
+                } else {
+                    $(sbutton).hide();
+                }
             })
             .always(function () {
                 $(sspin).hide();

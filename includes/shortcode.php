@@ -97,6 +97,11 @@ class Shortcode {
 			return "<h4>Tienes que estar conectado para acceder a esta página</h4>";
 		}
 
+		// Show/hide message waiting validation
+		$db                 = new Database();
+		$data               = $db->get_log_validation_email( get_current_user_id() );
+		$waiting_validation = ! empty( $data ) && $data['validated'] == 0;
+
 		ob_start();
 		include_once DCMS_PIN_PATH . '/views/form-validate.php';
 		$html_code = ob_get_contents();

@@ -1,11 +1,22 @@
+<?php
+/** @var bool $waiting_validation */
+?>
 <section class="container-validate">
 
     <form id="frm-validate" method="post" class="frm-validate">
+		<?php
+
+		if ( $waiting_validation ) : ?>
+            <section class="message">
+                Ya has validado tu correo electrónico, espera unos minutos para usar el enlace que te llegará por
+                correo, o genera un nuevo enlace.
+            </section>
+            <br>
+		<?php endif; ?>
 
         <label for="email"><span class="dashicons dashicons-email"></span> Correo<span>*</span></label>
         <input type="email" id="email" name="email" value="" maxlength="100" tabindex="0" placeholder="@" required>
 
-        <input type="hidden" id="unique_id" name="unique_id" value="<?= $unique_id ?>">
         <input type="hidden" name="action" value="validate_email">
 
         <input type="submit" class="button" id="validate-email" name="send"

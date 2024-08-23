@@ -62,6 +62,10 @@ class Database {
 
 	// Get duplicate email validation
 	public function get_duplicate_email( $email, $not_id ): int {
+		if ( empty( $email ) ) {
+			return 1;
+		}
+
 		$sql = "SELECT user_id FROM $this->table_user_meta
                 WHERE meta_key = 'email' AND meta_value = '$email' AND user_id <> $not_id";
 
@@ -143,9 +147,19 @@ class Database {
 
 	// Update log table validation email
 	public function update_log_validation_email( $user_id ): void {
-		$data  = [ 'validated' => 1 ];
+		$data  = [
+			'validated' => 1,
+			'date'      => current_time( 'mysql' )
+		];
 		$where = [ 'id_user' => $user_id ];
 
 		$this->wpdb->update( $this->table_log_validation_email, $data, $where );
+	}
+
+	// Get log validation email by user id
+	public function get_log_validation_email( $user_id ): array {
+		$sql = "SELECT * FROM $this->table_log_validation_email WHERE id_user = $user_id";
+
+		return $this->wpdb->get_row( $sql, ARRAY_A ) ?? [];
 	}
 }
