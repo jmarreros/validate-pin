@@ -102,8 +102,8 @@ class Process {
 		// validate number <> 0
 		$this->validate_number( $identify );
 
-		$data      = new Database();
-		$user_meta = $data->get_data_user( $identify );
+		$db        = new Database();
+		$user_meta = $db->get_data_user( $identify );
 
 		// number exists
 		$this->validate_number( $user_meta );
@@ -119,7 +119,7 @@ class Process {
 		$db_email    = strtolower( $arr_meta['email'] );
 
 		// Validate duplicate email
-		$duplicate = $data->get_duplicate_email( $email, $db_id );
+		$duplicate = $db->get_duplicate_email( $email, $db_id );
 		$this->validate_duplicate_email( $duplicate );
 
 		// validate reference with number
@@ -127,7 +127,7 @@ class Process {
 
 		// Update email database
 		if ( $db_email != $email ) {
-			$res = $data->update_email_user( $email, $db_id );
+			$res = $db->update_email_user( $email, $db_id );
 			$this->validate_update_email( $res );
 		}
 
@@ -136,7 +136,16 @@ class Process {
 		$this->validate_send_email( $res );
 
 		// Save log
-		$data->save_log_pin_sent( $email, $db_identify, $db_pin, $db_number, $db_ref, $db_nif, $db_id );
+		$db->save_log_pin_sent( $email, $db_identify, $db_pin, $db_number, $db_ref, $db_nif, $db_id );
+
+		// Check is validate email is active
+		$options               = get_option( 'dcms_pin_options' );
+		$validate_email_active = isset( $options['dcms_check_validate_email'] );
+
+		if ( $validate_email_active ) {
+			$db->generate_unique_id_validation_email( $db_id, $email );
+			$db->update_log_validation_email( $db_id );
+		}
 
 		// If all is ok
 		$res = [
