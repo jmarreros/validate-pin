@@ -112,7 +112,7 @@ class Database {
 		return $res;
 	}
 
-	// Select the custom table, lastest rows
+	// Select the custom table, by date range
 	public function report_pin_sent( $star, $end ) {
 
 		$sql = "SELECT * FROM {$this->table_log_pin_sent}
@@ -168,6 +168,18 @@ class Database {
 		$data = $this->wpdb->get_row( $sql, ARRAY_A ) ?? [];
 
 		return empty( $data ) || $data['validated'] == 0;
+	}
+
+	// Select the custom table, by date range
+	public function report_validate_email( $star, $end ) {
+
+		$sql = "SELECT u.user_login, v.* 
+				FROM {$this->table_log_validation_email} v
+				INNER JOIN $this->table_user u ON v.id_user = u.ID
+				WHERE v.`date` BETWEEN '{$star} 00:00:00' AND '{$end} 23:59:00'
+				ORDER BY v.date DESC";
+
+		return $this->wpdb->get_results( $sql );
 	}
 }
 

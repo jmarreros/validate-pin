@@ -41,6 +41,14 @@ class Submenu {
 			$rows = $db->report_pin_sent( $val_start, $val_end );
 		}
 
+		if ( isset( $_POST['date_start_validate'] ) && isset( $_POST['date_end_validate'] ) ) {
+			$db        = new Database();
+			$val_start = $_POST['date_start_validate'];
+			$val_end   = $_POST['date_end_validate'];
+
+			$rows = $db->report_validate_email( $val_start, $val_end );
+		}
+
 		include_once( DCMS_PIN_PATH . 'backend/views/settings-main.php' );
 	}
 }
