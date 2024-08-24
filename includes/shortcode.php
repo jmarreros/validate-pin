@@ -97,10 +97,21 @@ class Shortcode {
 			return "<h4>Tienes que estar conectado para acceder a esta página</h4>";
 		}
 
+		$user_id = get_current_user_id();
+
 		// Show/hide message waiting validation
 		$db                 = new Database();
-		$data               = $db->get_log_validation_email( get_current_user_id() );
-		$waiting_validation = ! empty( $data ) && $data['validated'] == 0;
+		$data               = $db->get_log_validation_email( $user_id );
+		$waiting_validation = ! empty( $data ) && $data['validated'] == 0 && $data['email'] != '';
+		$unique_id          = $data['unique_id'];
+
+		// Save in database unique_id and show in HTML hidden input, to get user_id in the ajax process3
+		if ( empty( $data ) || empty( $unique_id ) ) {
+			$unique_id = $db->generate_unique_id_validation_email( $user_id, '' );
+		}
+
+		// Logout user
+		wp_logout();
 
 		ob_start();
 		include_once DCMS_PIN_PATH . '/views/form-validate.php';

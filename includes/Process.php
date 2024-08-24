@@ -68,7 +68,7 @@ class Process {
 			// Check if validate email is active
 			$options = get_option( 'dcms_pin_options' );
 
-			if ( $options['dcms_check_validate_email'] ) {
+			if ( isset( $options['dcms_check_validate_email'] ) ) {
 				$db                       = new Database();
 				$require_validation_email = $db->user_require_validation_email( $user_signon->ID );
 				if ( $require_validation_email ) {
@@ -150,28 +150,34 @@ class Process {
 
 	// Validate Email Form
 	public function process_form_validate_email(): void {
-		// Validate nonce
-		$this->validate_nonce( 'ajax-nonce-validation-email' );
+		$email     = strtolower( sanitize_email( $_POST['email'] ?? '' ) );
+		$unique_id = $_POST['unique_id'] ?? '';
 
-		$email = strtolower( sanitize_email( $_POST['email'] ?? '' ) );
+		if ( ! $unique_id || ! $email ) {
+			return;
+		}
 
 		$db = new Database();
 
-		$user_id = get_current_user_id();
+		// Get user id from unique_id
+		$user_data = $db->get_user_data_by_unique_id( $unique_id );
+		$user_id   = $user_data['id_user'] ?? 0;
+
+		if ( ! $user_id ) {
+			return;
+		}
 
 		// Validate duplicate email
 		$duplicate = $db->get_duplicate_email( $email, $user_id );
 		$this->validate_duplicate_email( $duplicate );
 
-		// Save in database unique_id
+		// Generate a new unique_id to send mail
 		$unique_id = $db->generate_unique_id_validation_email( $user_id, $email );
 
 		// Send email to user with the url to validate
 		$res = $this->send_email_validate_email_form( $email, $unique_id );
 		$this->validate_send_email( $res );
 
-		//logout
-		wp_logout();
 
 		$res = [
 			'status'  => 1,

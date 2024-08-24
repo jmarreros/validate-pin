@@ -75,6 +75,7 @@
 }
 
 .frm-validate .message,
+.frm-validate .message-waiting,
 .frm-login .message,
 .frm-pin .message {
   background-color: #ceeed8;

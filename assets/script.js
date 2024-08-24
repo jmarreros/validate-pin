@@ -27,7 +27,11 @@
                 show_message(res, smessage);
 
                 if (res.status === 1) {
-                    window.location.href = dcms_flogin.url;
+                    if (res.url_validate) {
+                        window.location.href = res.url_validate;
+                    } else {
+                        window.location.href = dcms_flogin.url;
+                    }
                 }
             })
             .always(function () {

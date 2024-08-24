@@ -163,10 +163,11 @@ class Database {
 		return $this->wpdb->get_row( $sql, ARRAY_A ) ?? [];
 	}
 
-	public function user_require_validation_email($user_id):bool{
-		$sql = "SELECT * FROM $this->table_log_validation_email WHERE id_user = $user_id";
+	public function user_require_validation_email( $user_id ): bool {
+		$sql  = "SELECT * FROM $this->table_log_validation_email WHERE id_user = $user_id";
 		$data = $this->wpdb->get_row( $sql, ARRAY_A ) ?? [];
-		return !empty($data) && $data['validated'] == 0;
+
+		return empty( $data ) || $data['validated'] == 0;
 	}
 }
 
